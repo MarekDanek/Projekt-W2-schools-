@@ -18,6 +18,9 @@
             height: 100vh;
             background-size: cover;
             background-position: center;
+            margin: 0;
+            padding: 0;
+            
         }
 
         .logo img {
@@ -60,7 +63,7 @@
         .content {
             margin-left: 200px;
             padding: 1px 16px;
-            height: 1000px;
+            height: 900%;
         }
 
         /* Styly pro editovatelný nadpis a obsah */
@@ -90,6 +93,22 @@
             .content {
                 margin-left: 0;
             }
+        }
+
+        #code-container {
+            background-color: #282c34;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 40%;
+            
+            
+        }
+
+        code {
+            display: block;
+           
         }
     </style>
 </head>
@@ -128,15 +147,35 @@
             <!-- Obsah pro stránku s ID 'uvod' -->
             <div  class="active">
                   <!-- Editovatelný nadpis -->
-            <div style="display:block;background-color:black;opacity: 0.7;color:white;padding:5%;border-radius: 5%" class="editable-title"  id="pageTitle">
+            <div style="display:block;background-color:black;opacity: 0.7;color:white;padding:5%;" class="editable-title"  id="pageTitle">
                     <h1 style="text-align: center;font-size: 4em">HTML</h1><br>
                   
                     <h2 style="text-align: center;">Vítejte v Kurzu HTML, naučíte se zde základy jazyku HTML.</h2><br>
-                    <h2 style="text-align: center;">Na levé straně si vyberte, jakou část HTML se chcete naučit.</h2>
+                    <h2 style="text-align: center;">Na levé straně si vyberte, jakou část HTML se chcete naučit.</h2><br>
+
+                            <div style="display:block;" id="code-container">
+                            <code>
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;Váš chatovací web&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br>
+                &nbsp;&nbsp;&lt;div id="code-container"&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;code&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Váš HTML a CSS kód zde<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/code&gt;<br>
+                &nbsp;&nbsp;&lt;/div&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+        </div>
+
                 </div>
-                <div style="opacity: 1;text-align:center; display:block;width:120%;height:60%" class="editable-title"  id="pageTitle">
-                    <img  src="doctype.png">
-                 </div>
+   
+               
             
                 <!-- Editovatelný obsah -->
                 <div class="editable-content"  id="pageContent">Vyberte obsah v bočním panelu.</div>
@@ -249,11 +288,10 @@
             </div>
         </div>
     </div>
-</header>
 
-<footer>
-    <p>&copy; 2023 W3Schools quiz</p>
-</footer>
+
+
+</header>
 
 <script>
     // Definice obsahu stránek
