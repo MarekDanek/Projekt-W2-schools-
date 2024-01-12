@@ -11,9 +11,10 @@
             margin: 0;
             padding: 0;
             font-size: 1.1em;
+            background-color: grey;
         }
 
-        header {
+        /* header {
             background-image: url("background-modified.png");
             height: 100vh;
             background-size: cover;
@@ -21,7 +22,8 @@
             margin: 0;
             padding: 0;
             
-        }
+            
+        } */
 
         .logo img {
             float: right;
@@ -40,7 +42,21 @@
             height: 100%;
             overflow: auto;
             transition: 0.5s;
+    scrollbar-width: thin; 
+    scrollbar-color: darkgrey lightgrey; 
         }
+
+        .sidebar::-webkit-scrollbar {
+            width: 12px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #333333
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background-color: lightgrey;
+}
 
         .sidebar a {
             display: block;
@@ -50,7 +66,7 @@
         }
 
         .sidebar a.active {
-            background-color: #3B3B3B;
+            background-color: #555;
             color: white;
             font-size: 1.2em;
         }
@@ -64,6 +80,7 @@
             margin-left: 200px;
             padding: 1px 16px;
             height: 900%;
+          
         }
 
         /* Styly pro editovatelný nadpis a obsah */
@@ -71,8 +88,12 @@
         .editable-content {
             padding: 8px; 
             clear: both;
+            
         }
-
+        .editable-title{
+           
+            
+        }
         /* Skryj všechny obsahy a zobraz pouze vybraný */
         .content div {
             display: none;
@@ -101,7 +122,8 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 40%;
+            max-width: 50%;
+            margin: auto;
             
             
         }
@@ -110,6 +132,32 @@
             display: block;
            
         }
+
+        /* Styly pro vyhledávací pole */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+   
+    
+}
+
+#searchInput {
+    padding: 10px;
+   
+}
+
+.search-container button {
+    padding: 12px;
+    background: #3B3B3B;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
     </style>
 </head>
 <body>
@@ -123,9 +171,13 @@
             </a>
         </div>
 
+
+        
+
         <!-- Boční panel s odkazy na stránky -->
         <div class="sidebar">
-             <a class="active">HTML</a>
+            <a style="background-color:#3B3B3B;" href="Hlavni_stranka.php"><b>DOMŮ</b></a>
+             <a onclick="changeContent('HTML')" class="active">HTML</a>
              <a onclick="changeContent('Uvod')">Úvod</a>
              <a onclick="changeContent('Prvky')">Prvky</a>
              <a onclick="changeContent('Atributy')">Atributy</a>
@@ -142,12 +194,23 @@
              <a onclick="changeContent('Media')">Média</a>
         </div>
 
+        
+
         <!-- Obsah stránky -->
         <div class="content">
+            
             <!-- Obsah pro stránku s ID 'uvod' -->
-            <div  class="active">
+            <div  class="active"  id="HTML">
+                
                   <!-- Editovatelný nadpis -->
-            <div style="display:block;background-color:black;opacity: 0.7;color:white;padding:5%;" class="editable-title"  id="pageTitle">
+            <div style="display:block;background-color:black;opacity: 0.7;color:white;padding:5%;border-radius:5%;" class="editable-title"  id="pageTitle">
+
+            <div style="display:block" class="search-container">
+                    <input type="text" id="searchInput" placeholder="Hledat...">
+                    <button onclick="searchPage()">Hledat</button>
+                          </div>
+                
+
                     <h1 style="text-align: center;font-size: 4em">HTML</h1><br>
                   
                     <h2 style="text-align: center;">Vítejte v Kurzu HTML, naučíte se zde základy jazyku HTML.</h2><br>
@@ -296,6 +359,7 @@
 <script>
     // Definice obsahu stránek
     const pages = [
+            {id: 'HTML', title: 'HTML', content: 'Obsah stránky 1.' },
             {id: 'Uvod', title: 'Úvod', content: 'Obsah stránky 1.' },
             {id: 'Prvky', title: 'Prvky', content: 'Obsah stránky 2.' },
             {id: 'Atributy', title: 'Atributy', content: 'Obsah stránky 3.' },
@@ -318,8 +382,34 @@
         document.querySelectorAll('.content div').forEach(div => div.classList.remove('active'));
         
         // Zobraz vybraný obsah
-        document.getElementById(pageId).classList.add('active');
+        const pageElement = document.getElementById(pageId);
+        if (pageElement) {
+            pageElement.classList.add('active');
+        }
     }
+    
+
+
+    function searchPage() {
+    var searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+    // Projdi pole stránek
+    for (var i = 0; i < pages.length; i++) {
+        var pageTitle = pages[i].title.toLowerCase();
+
+        // Pokud nalezneme shodu, přepneme na stránku a zobrazíme její obsah
+        if (pageTitle.includes(searchTerm)) {
+            changeContent(pages[i].id);
+            return;
+        }
+    }
+
+    // Pokud není nalezena shoda, můžete zde přidat kód pro zprávu o nenalezení
+    alert('Stránka nenalezena.');
+}
+
+
+
 </script>
 
 </body>
