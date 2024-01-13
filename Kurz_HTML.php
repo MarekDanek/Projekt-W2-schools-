@@ -157,6 +157,22 @@
     cursor: pointer;
 }
 
+.comment{
+    background-color:black;
+    color: white;
+}
+
+.button-link {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
 
     </style>
 </head>
@@ -203,7 +219,7 @@
             <div  class="active"  id="HTML">
                 
                   <!-- Editovatelný nadpis -->
-            <div style="display:block;background-color:black;opacity: 0.7;color:white;padding:5%;border-radius:5%;" class="editable-title"  id="pageTitle">
+            <div style="display:block;background-color:black;opacity: 0.7;color:white;padding:5%;" class="editable-title"  id="pageTitle">
 
             <div style="display:block" class="search-container">
                     <input type="text" id="searchInput" placeholder="Hledat...">
@@ -214,27 +230,9 @@
                     <h1 style="text-align: center;font-size: 4em">HTML</h1><br>
                   
                     <h2 style="text-align: center;">Vítejte v Kurzu HTML, naučíte se zde základy jazyku HTML.</h2><br>
-                    <h2 style="text-align: center;">Na levé straně si vyberte, jakou část HTML se chcete naučit.</h2><br>
+                    <h2 style="text-align: center;">Na levé straně si vyberte, jakou část HTML se chcete naučit, nebo vyhledejte podle klíčového slova.</h2><br>
 
-                            <div style="display:block;" id="code-container">
-                            <code>
-                &lt;!DOCTYPE html&gt;<br>
-                &lt;html lang="en"&gt;<br>
-                &lt;head&gt;<br>
-                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
-                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
-                &nbsp;&nbsp;&lt;title&gt;Váš chatovací web&lt;/title&gt;<br>
-                &lt;/head&gt;<br>
-                &lt;body&gt;<br>
-                &nbsp;&nbsp;&lt;div id="code-container"&gt;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&lt;code&gt;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Váš HTML a CSS kód zde<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/code&gt;<br>
-                &nbsp;&nbsp;&lt;/div&gt;<br>
-                &lt;/body&gt;<br>
-                &lt;/html&gt;<br>
-            </code>
-        </div>
+                           
 
                 </div>
    
@@ -252,6 +250,34 @@
                    
                    <h1 style="text-align:center" >Úvod</h1><br>
                    <h3 style="text-align:center">HTML(HyperText Markup Language) je jazyk používaný pro strukturování obsahu na webových stránkách.</h3>
+                  
+                   <div style="display:block;" id="code-container">
+                            <code>
+                                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comnment">Základní kostra HTML</p>
+  
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br>              
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Váš HTML a CSS kód zde<br>         
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+        </div>
+        <br>
+
+        <h2 style="text-align:center">Značkování obsahu</h2>
+    <h3 style="text-align:center">Obsah stránky se značkuje pomocí různých HTML elementů. Například <code>&lt;h1&gt; až &lt;h6&gt; se používají pro nadpisy,</code><code>&lt;p&gt; pro odstavce, a mnoho dalších elementů pro různé účely.</code></h3><br>
+    
+    <h2 style="text-align:center">Atributy</h2>
+    <h3 style="text-align:center">Elementy mohou mít také atributy, které poskytují další informace o elementu. Atributy jsou vždy uvedeny v začátkovém tagu. Například <code>&lt;img src="obrazek.jpg" alt="Popisek obrázku"&gt;.</code></h3><br>
+
+    <h3 style="text-align:center">HTML je základním nástrojem pro vytváření stránek na internetu. S jeho pomocí můžete strukturovat obsah, přidávat obrázky, odkazy, formuláře a mnoho dalšího. Nyní můžete začít s tvorbou vlastních webových stránek.</h3><br>
+        
            
               </div>
                 <!-- Editovatelný obsah -->
@@ -260,8 +286,244 @@
 
 
             <div id="Prvky">
+
+            <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"  class="editable-title"  id="pageTitle">
+                     
+            <h1>Základní HTML Prvky</h1>
+    
+    <h2 style="text-align:center">&lt;h1&gt; až &lt;h6&gt; - Nadpisy</h2>
+    <h3 style="text-align:center">Nadpisy se používají k označení různých úrovní nadpisů na stránce. <code>&lt;h1&gt; je nejvyšší úrovně, zatímco &lt;h6&gt; je nejnižší.</code></h3><br>
+
+    <div style="display:block;" id="code-container">
+                            <code>
+                                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comnment">Příklady nadpisů</p>
+
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br>      
+                       
+                &lt;h1&gt;Vítejte na webu!&lt;/h1&gt;<br>
+       &lt;h2&gt;Podnadpis&lt;/h2&gt;<br>
+       &lt;h3&gt;Podnadpis druhé úrovně&lt;/h3&gt;<br>
+       &lt;h4&gt;Podnadpis třetí úrovně&lt;/h4&gt;<br>
+       &lt;h5&gt;Podnadpis čtvrté úrovně&lt;/h5&gt;<br>
+       &lt;h6&gt;Podnadpis páté úrovně&lt;/h6&gt;<br>   
+
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+  
+           
+            </code>
+        </div><br>
+
+        <div style="text-align:center;display:block;">
+    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    </div><br>
+    
+    <h2 style="text-align:center">&lt;p&gt; - Odstavec</h2>
+    <h3 style="text-align:center"><code>Element &lt;p&gt; slouží k vytváření odstavců textu na stránce. Každý odstavec je oddělen prázdným prostorem od ostatních.</code></h3><br>
+
+    <div style="display:block;" id="code-container">
+                            <code>
+                                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comnment">Příklady nadpisů</p>
+
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br>      
+                       
+                &nbsp;&lt;p&gt;&lt;Toto je váš text v odstavci.&lt;/p&gt;<br> 
+
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+  
+           
+            </code>
+        </div><br>
+
+        <div style="text-align:center;display:block;">
+    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    </div><br>
+    
+    <h2 style="text-align:center">&lt;a&gt; - Odkaz</h2>
+    <h3 style="text-align:center"><code>Element &lt;a&gt; slouží k vytváření odkazů na jiné stránky, soubory nebo místa na stejné stránce. Atribut href určuje cílovou adresu.</code></h3><br>
+
+    <div style="display:block;" id="code-container">
+                            <code>
+                                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comnment">Příklady nadpisů</p>
+
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br>      
+                       
+                &lt;a href="https://www.example.com"&gt;Odkaz na příklad&lt;/a&gt;<br>
+
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+  
+           
+            </code>
+        </div><br>
+
+        <div style="text-align:center;display:block;">
+    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    </div><br>
+    
+    
+    <h2 style="text-align:center">&lt;img&gt; - Obrázek</h2>
+    <h3 style="text-align:center"><code>Element &lt;img&gt; se používá k vkládání obrázků na stránku. Atribut src specifikuje zdrojový soubor obrázku.</code></h3><br>
+
+    <div style="display:block;" id="code-container">
+                            <code>
+                                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comnment">Příklady nadpisů</p>
+
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br>      
+                       
+                &lt;img src="obrazek.jpg" alt="Popisek obrázku"&gt;<br>
+
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+  
+           
+            </code>
+        </div><br>
+
+        <div style="text-align:center;display:block;">
+    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    </div><br>
+
+    <h2 style="text-align:center">&lt;ul&gt;, &lt;ol&gt; a &lt;li&gt; - Seznamy</h2>
+    <h3><code>Pro vytváření nečíslovaných seznamů použijte &lt;ul&gt; a &lt;li&gt;. Pro číslované seznamy použijte &lt;ol&gt;.</code></h3><br>
+
+    <div style="display:block;" id="code-container">
+                            <code>
+                                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comnment">Příklady nadpisů</p>
+
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br>      
+                                
+                            &lt;ul&gt;<br>
+                &lt;li&gt;Položka 1&lt;/li&gt;<br>
+                &lt;li&gt;Položka 2&lt;/li&gt;<br>
+                &lt;li&gt;Položka 3&lt;/li&gt;<br>
+            &lt;/ul&gt;<br>
+
+            &lt;ol&gt;<br>
+                &lt;li&gt;První položka&lt;/li&gt;<br>
+                &lt;li&gt;Druhá položka&lt;/li&gt;<br>
+                &lt;li&gt;Třetí položka&lt;/li&gt;<br>
+            &lt;/ol&gt;<br>
+
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+  
+           
+            </code>
+        </div><br>
+
+        <div style="text-align:center;display:block;">
+    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    </div><br>
+    
+    <h2 style="text-align:center">&lt;div&gt; - Blokový Kontejner</h2>
+    <h3 style="text-align:center"><code>Element &lt;div&gt; slouží k vytváření blokových kontejnerů pro skupiny elementů. Používá se pro organizaci a formátování obsahu.</code></h3><br>
+
+    <div style="display:block;" id="code-container">
+                            <code>
+                                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comnment">Příklady nadpisů</p>
+
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br>      
+                                
+                &lt;div&gt;<br>   
+                    Obsah divu zde<br>   
+                &lt;/div&gt;<br>   
+
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+  
+           
+            </code>
+        </div><br>
+
+        <div style="text-align:center;display:block;">
+    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    </div><br>
+
+    <h2 style="text-align:center">&lt;span&gt; - Řádkový Kontejner</h2>
+    <h3 style="text-align:center"><code>Element &lt;span&gt; slouží k vytváření řádkových kontejnerů pro skupiny textových prvků. Používá se pro aplikaci stylů nebo skrytí části textu.</code></h3><br>
+
+    
+    <div style="display:block;" id="code-container">
+                            <code>
+                                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comnment">Příklady nadpisů</p>
+
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br>      
+                                
+                &lt;span class="moje-span"&gt;<br> 
+                   Text v spanu<br> 
+                &lt;/span&gt;<br> 
+
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+  
+           
+            </code>
+        </div><br>
+
+        <div style="text-align:center;display:block;">
+    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    </div><br>
+
+
+    <h3 style="text-align:center">Toto jsou jen základní HTML prvky. Existuje mnoho dalších prvků, které můžete používat k vytváření struktury a obsahu webových stránek.</h3>
+
+    
+
+
+            </div>
                 <!-- Editovatelný nadpis -->
-                <p class="editable-title"  id="pageTitle">Prvky</p>
+                
                 <!-- Editovatelný obsah -->
                 <div class="editable-content"  id="pageContent">Obsah stránky 2.</div>
             </div>
