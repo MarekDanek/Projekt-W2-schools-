@@ -15,10 +15,10 @@
 
 .logo img {
     float: right;
-    margin-left: 3%;
-    margin-top: 10%;
-    width: 55px;
-    height: auto;
+       margin-left: 3%;
+       margin-top: 5%;
+       width: 95%;
+       height: auto;
 }
 
 .sidebar {
@@ -85,11 +85,11 @@ div.content {
 
         <div>
 
-          <div style=" float: right; margin-right: 3%;" class="logo">
-            <a href="hlavni_stranka.php">
-            <img src="logo.png" alt="logo">
-        </a>
-        </div>
+        <div style=" float: right; margin-right: 1%;" class="logo">
+				  <a href="hlavni_stranka.php">
+				  <img src="logo-new-bílý.png" alt="logo">
+			  </a>
+			  </div>
 
 
  <div class="sidebar">

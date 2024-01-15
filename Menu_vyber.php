@@ -51,6 +51,15 @@
     transform: translate(-50%, -50%);
 }
 
+.logo img{
+       float: right;
+       margin-left: 3%;
+       margin-top: 10%;
+       width: 55px;
+       height: auto;
+}
+
+
 .title h1{
     text-transform: uppercase;
     color: white;
@@ -62,26 +71,134 @@
      
 }
 
+.navbar {
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 25px;
+  text-decoration: none;
+  font-size: 25px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: #525252;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar a.active {
+  background-color: #3B3B3B;
+  color: white;
+ 
+}
+
+.navbar .icon {
+  display: none;
+}
+
+@media screen and (max-width: 820px) {
+  .navbar a:not(:first-child) {display: none;}
+  .navbar a.icon {
+    float: left;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .navbar.responsive {position: relative;}
+  .navbar.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    
+  }
+  .navbar.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+.button-container {
+            display: grid;
+          
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .w3-btn {
+            font-size: 2.5em;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .w3-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
     </style>
 </head>
 <body>
     <header>
 
+    <div>
+
+<div style=" float: right; margin-right: 3%;" class="logo">
+  <a href="hlavni_stranka.php">
+  <img src="logo.png" alt="logo">
+</a>
+</div>
+
+
+<div class="navbar" id="menu">
+  <a href="Hlavni_stranka.php" class="active"><b>Domů</b></a>
+  <a href="Menu_vyber.php"><b>Kurzy</b></a>
+  <a href="Testy.php"><b>Testy</b></a>
+  <a href="informace.php"><b>Informace o IT</b></a>
+  <a href="login.html"><b>Přihlášení</b></a>
+  <a href="javascript:void(0);" class="icon" onclick="ResponsiveNavbar()">
+    <i class="fa fa-bars"></i>
+
+  </a>
+</div>
+
     <div class="title" class="w3-container"> 
          <h1><b>Vyberte, jaký jazyk se chcete naučit.</b></h1>
 
-             <div style="text-align : center;">     
-          <a href="Kurz_JS.php">  <button style="font-size: 2.5em;" class="w3-btn w3-black w3-hover-white w3-round">JavaScript</button></a>
-          <a href="Kurz_HTML.php"> <button style="font-size: 2.5em" class="w3-btn w3-black w3-hover-white w3-round">HTML</button></a>
-          <a href="Kurz_PHP.php"> <button style="font-size: 2.5em" class="w3-btn w3-black w3-hover-white w3-round">PHP</button></a>
-            </div>
+         <div class="button-container">
+    <a href="Kurz_JS.php" class="w3-btn w3-black w3-hover-white w3-round">JavaScript</a>
+    <a href="Kurz_HTML.php" class="w3-btn w3-black w3-hover-white w3-round">HTML</a>
+    <a href="Kurz_PHP.php" class="w3-btn w3-black w3-hover-white w3-round">PHP</a>
+</div>
+
                  
      </diV>
 
         
  
     </header>
- 
+
+    <script>
+        function ResponsiveNavbar() {
+  var x = document.getElementById("menu");
+  if (x.className === "navbar") {
+    x.className += " responsive";
+  } else {
+    x.className = "navbar";
+  }
+}
+
+        </script>
 
 </body>
 </html>

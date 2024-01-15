@@ -32,8 +32,8 @@ background-position: center;
 .logo img{
        float: right;
        margin-left: 3%;
-       margin-top: 10%;
-       width: 55px;
+       margin-top: 5%;
+       width: 95%;
        height: auto;
 }
 
@@ -115,39 +115,79 @@ background-position: center;
   }
 }
 
-footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+.dropdown {
+            display: inline-block;
+            float:left;
         }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        
+        }
+
      
-      
     </style> 
     <title >W2 Schools Quiz</title>
 </head>
 <body>
    
       <header>
+
+
         <div>
 
-          <div style=" float: right; margin-right: 3%;" class="logo">
+          <div style=" float: right; margin-right: 1%;" class="logo">
             <a href="hlavni_stranka.php">
-            <img src="logo.png" alt="logo">
+            <img src="logo-new-bílý.png" alt="logo">
         </a>
         </div>
       
 
         <div class="navbar" id="menu">
-            <a href="hlavni_stranka.php" class="active"><b>Domů</b></a>
-            <a href="Menu_vyber.php"><b>Kurzy</b></a>
-            <a href="Testy.php"><b>Testy</b></a>
+            <a href="Hlavni_stranka.php" class="active"><b>Domů</b></a>    
+            <div class="dropdown">
+            <a href="javascript:void(0);" onclick="showDropdown()"><b>Kurzy</b></a>  
+            <div class="dropdown-content" id="kurzyDropdown">
+            <a href="Kurz_HTML.php">HTML</a>
+            <a href="Kurz_JS.php">JavaScript</a>
+            <a href="Kurz_PHP.php">PHP</a>
+        </div> 
+    </div>
+    <div class="dropdown">
+            <a href="javascript:void(0);" onclick="showDropdown()"><b>Testy</b></a>  
+            <div class="dropdown-content" id="kurzyDropdown">
+            <a href="Testy_HTML.php">Testy HTML</a>
+            <a href="Testy_JS.php">Testy JavaScript</a>
+            <a href="Testy_PHP.php">Testy PHP</a>
+        </div> 
+    </div>
             <a href="informace.php"><b>Informace o IT</b></a>
+            <a href="login.html"><b>Přihlášení</b></a>
             <a href="javascript:void(0);" class="icon" onclick="ResponsiveNavbar()">
               <i class="fa fa-bars"></i>
+
             </a>
           </div>
 
@@ -156,7 +196,7 @@ footer {
                   
          </diV>
         </div>
-         
+  
 
       </header>
 
@@ -169,11 +209,27 @@ footer {
     x.className = "navbar";
   }
 }
+
+
+function showDropdown() {
+        document.getElementById("kurzyDropdown").classList.toggle("show");
+    }
+
+    // Zavřít dropdown, pokud uživatel klikne mimo něj
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropdown')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
         </script>
 
-<footer>
-    <p>&copy; 2023 W3Schools quiz</p>
-</footer>
    
 </body>
 </html>

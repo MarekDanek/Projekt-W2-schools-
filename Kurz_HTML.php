@@ -1,3 +1,39 @@
+<?php
+$DATABASE_HOST = 'localhost';
+$DATABASE_USER = 'root';
+$DATABASE_PASS = '';
+$DATABASE_NAME = 'w2_schools';
+
+$conn = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+
+if (mysqli_connect_errno()){
+    echo "Nepodařilo se připojit k MySql: ". mysqli_connect_errno();
+    exit();
+    
+}else{
+    // echo "je pripojeno";
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Získání dat z formuláře
+    $title = $_POST["Title"];
+    $obsah = $_POST["Obsah"];
+
+    // Uložení dat do databáze
+    $sql = "INSERT INTO UserContent (Title, Obsah) VALUES ('$title', '$obsah')";
+
+    if ($conn->query($sql) === TRUE) {
+        
+    } else {
+        echo "Chyba: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+$conn->close();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,23 +50,19 @@
             background-color: grey;
         }
 
-        /* header {
-            background-image: url("background-modified.png");
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            margin: 0;
-            padding: 0;
-            
-            
-        } */
+        #userText {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+        }
 
         .logo img {
             float: right;
-            margin-left: 3%;
-            margin-top: 10%;
-            width: 55px;
-            height: auto;
+       margin-left: 3%;
+       margin-top: 5%;
+       width: 95%;
+       height: auto;
         }
 
         .sidebar {
@@ -173,6 +205,47 @@
             cursor: pointer;
         }
 
+        form {
+            max-width: 600px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            color:black;
+            
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1,5em;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: black;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: grey;
+            color: black;
+        }
+
 
     </style>
 </head>
@@ -181,11 +254,11 @@
 <header>
     <div>
         <!-- Logo vpravo nahoře -->
-        <div style=" float: right; margin-right: 3%;" class="logo">
-            <a href="hlavni_stranka.php">
-                <img src="logo.png" alt="logo">
-            </a>
-        </div>
+        <div style=" float: right; margin-right: 1%;" class="logo">
+				  <a href="hlavni_stranka.php">
+				  <img src="logo-new-bílý.png" alt="logo">
+			  </a>
+			  </div>
 
 
         
@@ -248,8 +321,8 @@
                 <!-- Editovatelný nadpis -->
                 <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"  class="editable-title"  id="pageTitle">
                    
-                   <h1 style="text-align:center" >Úvod</h1><br>
-                   <h3 style="text-align:center">HTML(HyperText Markup Language) je jazyk používaný pro strukturování obsahu na webových stránkách.</h3>
+                   <h1>Úvod</h1><br>
+                   <h3 style="text-align:center">HTML(HyperText Markup Language) je jazyk používaný pro strukturování obsahu na webových stránkách.</h3><br>
                   
                    <div style="display:block;" id="code-container">
                             <code>
@@ -278,6 +351,15 @@
 
     <h3 style="text-align:center">HTML je základním nástrojem pro vytváření stránek na internetu. S jeho pomocí můžete strukturovat obsah, přidávat obrázky, odkazy, formuláře a mnoho dalšího. Nyní můžete začít s tvorbou vlastních webových stránek.</h3><br>
         
+                 <form method="post" id="Form">
+                    <label for="Title">Title:</label>
+                    <input type="text" id="Title" name="Title" required>
+                    <label for="Obsah">Obsah:</label>
+                    <input type="text" id="Obsah" name="Obsah" required>
+
+
+                    <button type="submit">Send Message</button>
+                </form>
            
               </div>
                 <!-- Editovatelný obsah -->
@@ -291,7 +373,7 @@
                      
             <h1>Základní HTML Prvky</h1>
     
-    <h2 style="text-align:center">&lt;h1&gt; až &lt;h6&gt; - Nadpisy</h2>
+    <h2 style="text-align:center;background-color:#191616;">&lt;h1&gt; až &lt;h6&gt; - Nadpisy</h2>
     <h3 style="text-align:center">Nadpisy se používají k označení různých úrovní nadpisů na stránce. <code>&lt;h1&gt; je nejvyšší úrovně, zatímco &lt;h6&gt; je nejnižší.</code></h3><br>
 
     <div style="display:block;" id="code-container">
@@ -322,10 +404,10 @@
         </div><br>
 
         <div style="text-align:center;display:block;">
-    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    <a class="button-link" href="code-editor.php" target="_blank"><button class="button-link">Vyzkoušej</button></a>
     </div><br>
     
-    <h2 style="text-align:center">&lt;p&gt; - Odstavec</h2>
+    <h2 style="text-align:center;background-color:#191616;">&lt;p&gt; - Odstavec</h2>
     <h3 style="text-align:center"><code>Element &lt;p&gt; slouží k vytváření odstavců textu na stránce. Každý odstavec je oddělen prázdným prostorem od ostatních.</code></h3><br>
 
     <div style="display:block;" id="code-container">
@@ -351,10 +433,10 @@
         </div><br>
 
         <div style="text-align:center;display:block;">
-    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    <a class="button-link" href="code-editor.php" target="_blank"><button class="button-link">Vyzkoušej</button></a>
     </div><br>
     
-    <h2 style="text-align:center">&lt;a&gt; - Odkaz</h2>
+    <h2 style="text-align:center;background-color:#191616;">&lt;a&gt; - Odkaz</h2>
     <h3 style="text-align:center"><code>Element &lt;a&gt; slouží k vytváření odkazů na jiné stránky, soubory nebo místa na stejné stránce. Atribut href určuje cílovou adresu.</code></h3><br>
 
     <div style="display:block;" id="code-container">
@@ -380,11 +462,11 @@
         </div><br>
 
         <div style="text-align:center;display:block;">
-    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    <a class="button-link" href="code-editor.php" target="_blank"><button class="button-link">Vyzkoušej</button></a>
     </div><br>
     
     
-    <h2 style="text-align:center">&lt;img&gt; - Obrázek</h2>
+    <h2 style="text-align:center;background-color:#191616;">&lt;img&gt; - Obrázek</h2>
     <h3 style="text-align:center"><code>Element &lt;img&gt; se používá k vkládání obrázků na stránku. Atribut src specifikuje zdrojový soubor obrázku.</code></h3><br>
 
     <div style="display:block;" id="code-container">
@@ -410,10 +492,10 @@
         </div><br>
 
         <div style="text-align:center;display:block;">
-    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    <a class="button-link" href="code-editor.php" target="_blank"><button class="button-link">Vyzkoušej</button></a>
     </div><br>
 
-    <h2 style="text-align:center">&lt;ul&gt;, &lt;ol&gt; a &lt;li&gt; - Seznamy</h2>
+    <h2 style="text-align:center;background-color:#191616;">&lt;ul&gt;, &lt;ol&gt; a &lt;li&gt; - Seznamy</h2>
     <h3><code>Pro vytváření nečíslovaných seznamů použijte &lt;ul&gt; a &lt;li&gt;. Pro číslované seznamy použijte &lt;ol&gt;.</code></h3><br>
 
     <div style="display:block;" id="code-container">
@@ -449,10 +531,10 @@
         </div><br>
 
         <div style="text-align:center;display:block;">
-    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    <a class="button-link" href="code-editor.php" target="_blank"><button class="button-link">Vyzkoušej</button></a>
     </div><br>
     
-    <h2 style="text-align:center">&lt;div&gt; - Blokový Kontejner</h2>
+    <h2 style="text-align:center;background-color:#191616;">&lt;div&gt; - Blokový Kontejner</h2>
     <h3 style="text-align:center"><code>Element &lt;div&gt; slouží k vytváření blokových kontejnerů pro skupiny elementů. Používá se pro organizaci a formátování obsahu.</code></h3><br>
 
     <div style="display:block;" id="code-container">
@@ -480,10 +562,10 @@
         </div><br>
 
         <div style="text-align:center;display:block;">
-    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
+    <a class="button-link" href="code-editor.php" target="_blank"><button class="button-link">Vyzkoušej</button></a>
     </div><br>
 
-    <h2 style="text-align:center">&lt;span&gt; - Řádkový Kontejner</h2>
+    <h2 style="text-align:center;background-color:#191616;">&lt;span&gt; - Řádkový Kontejner</h2>
     <h3 style="text-align:center"><code>Element &lt;span&gt; slouží k vytváření řádkových kontejnerů pro skupiny textových prvků. Používá se pro aplikaci stylů nebo skrytí části textu.</code></h3><br>
 
     
@@ -512,11 +594,21 @@
         </div><br>
 
         <div style="text-align:center;display:block;">
-    <a class="button-link" href="code-editor.php"><button class="button-link">Vyzkoušej</button></a>
-    </div><br>
+    <a class="button-link" href="code-editor.php" target="_blank"><button class="button-link">Vyzkoušej</button></a>
+    </div><br><br>
 
 
     <h3 style="text-align:center">Toto jsou jen základní HTML prvky. Existuje mnoho dalších prvků, které můžete používat k vytváření struktury a obsahu webových stránek.</h3>
+
+    <form id="contentForm">
+    <label for="pageTitle">Title:</label>
+    <input type="text" id="pageTitle" name="pageTitle" required>
+    
+    <label for="pageContent">Content:</label>
+    <textarea id="pageContent" name="pageContent" required></textarea>
+    
+    <button type="button" onclick="saveContent()">Save Content</button>
+</form>
 
     
 
@@ -529,8 +621,38 @@
             </div>
 
             <div id="Atributy">
+
+            <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"  class="editable-title"  id="pageTitle">
                 <!-- Editovatelný nadpis -->
-                <p class="editable-title"  id="pageTitle">Atributy</p>
+
+                <h1>HTML Atributy</h1><br>
+    
+    <h2 style="text-align:center;background-color:#191616;">&lt;class&gt; - Třída</h2>
+    <h3 style="text-align:center;"><code>Attribute class se používá k přiřazení jednoho nebo více CSS tříd prvkům pro stylování.</code></h3><br>
+    
+    <h2 style="text-align:center;background-color:#191616;">&lt;id&gt; - Identifikátor</h2>
+    <h3 style="text-align:center;"><code>Attribute id slouží k nastavení unikátního identifikátoru pro prvek.</code></h3><br>
+    
+    <h2 style="text-align:center;background-color:#191616;">&lt;style&gt; - Inline styly</h2>
+    <h3 style="text-align:center;"><code>Attribute style umožňuje nastavit inline CSS styly přímo uvnitř elementu.</code></h3><br>
+
+    <h2 style="text-align:center;background-color:#191616;">&lt;src&gt; - Zdroj</h2>
+    <h3 style="text-align:center;"><code>Attribute src se často používá pro specifikaci zdrojového souboru, například v elementu &lt;img&gt;.</code></h3><br>
+
+    <h2 style="text-align:center;background-color:#191616;">&lt;href&gt; - Hypertext Reference</h2>
+    <h3 style="text-align:center;"><code>Attribute href se často používá pro odkazování na jiné stránky, soubory nebo místa na stejné stránce, například v elementu &lt;a&gt;.</code>/h3><br>
+
+    <h2 style="text-align:center;background-color:#191616;">&lt;alt&gt; - Alternativní Text</h2>
+    <h3 style="text-align:center;"><code>Attribute alt se používá pro poskytnutí alternativního textu pro obrázky v elementu &lt;img&gt;.</code></h3><br>
+
+    <h2 style="text-align:center;background-color:#191616;">&lt;width&gt; a &lt;height&gt; - Šířka a Výška</h2>
+    <h3 style="text-align:center;"><code>Attribute width a height určují šířku a výšku elementu, například v elementu &lt;img&gt;.</code></h3><br><br>
+
+    <h3 style="text-align:center;">Tyto jsou jen některé z atributů, které můžete použít v HTML pro ovlivnění chování a vzhledu prvků.</h3>
+
+
+    </div>
+               
                 <!-- Editovatelný obsah -->
                 <div class="editable-content"  id="pageContent">Obsah stránky 2.</div>
             </div>

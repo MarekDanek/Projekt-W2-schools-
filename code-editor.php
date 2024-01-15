@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Html editor</title>
+  <title>HTML editor</title>
   <style>
     body {
       margin: 0;
@@ -58,7 +58,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Html editor</title>
+  <title>Stránka</title>
 </head>
 <body>
 
