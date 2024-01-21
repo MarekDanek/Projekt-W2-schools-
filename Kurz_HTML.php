@@ -302,7 +302,7 @@ $conn->close();
 
                     <h1 style="text-align: center;font-size: 4em">HTML</h1><br>
                   
-                    <h2 style="text-align: center;">Vítejte v Kurzu HTML, naučíte se zde základy jazyku HTML.</h2><br>
+                    <h2 style="text-align: center;">Vítejte v Kurzu HTML, naučíte se zde základy, jazyku HTML.</h2><br>
                     <h2 style="text-align: center;">Na levé straně si vyberte, jakou část HTML se chcete naučit, nebo vyhledejte podle klíčového slova.</h2><br>
 
                            
