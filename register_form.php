@@ -111,7 +111,7 @@ header{
   	width: 100%;
   	padding: 15px;
  	margin-top: 20px;
-  	background-color: black;
+  	background-color: #3B3B3B;
   	border: 0;
   	cursor: pointer;
   	font-weight: bold;
@@ -181,7 +181,7 @@ header{
   float: right;
        margin-left: 3%;
        margin-top: 5%;
-       width: 95%;
+       width: 85%;
        height: auto;
 }
 

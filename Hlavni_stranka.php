@@ -33,7 +33,7 @@ background-position: center;
        float: right;
        margin-left: 3%;
        margin-top: 5%;
-       width: 95%;
+       width: 85%;
        height: auto;
 }
 
