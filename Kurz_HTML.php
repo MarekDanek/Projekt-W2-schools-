@@ -322,7 +322,7 @@ $conn->close();
                 <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"  class="editable-title"  id="pageTitle">
                    
                    <h1>Úvod</h1><br>
-                   <h3 style="text-align:center">HTML(HyperText Markup Language) je jazyk používaný pro strukturování obsahu na webových stránkách.</h3><br>
+                   <h3 style="text-align:center">HTML(HyperText Markup Language) je  jazyk používaný pro strukturování obsahu na webových stránkách.</h3><br>
                   
                    <div style="display:block;" id="code-container">
                             <code>
