@@ -1,39 +1,3 @@
-<?php
-$DATABASE_HOST = 'localhost';
-$DATABASE_USER = 'root';
-$DATABASE_PASS = '';
-$DATABASE_NAME = 'w2_schools';
-
-$conn = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-
-if (mysqli_connect_errno()){
-    echo "Nepodařilo se připojit k MySql: ". mysqli_connect_errno();
-    exit();
-    
-}else{
-    // echo "je pripojeno";
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Získání dat z formuláře
-    $title = $_POST["Title"];
-    $obsah = $_POST["Obsah"];
-
-    // Uložení dat do databáze
-    $sql = "INSERT INTO UserContent (Title, Obsah) VALUES ('$title', '$obsah')";
-
-    if ($conn->query($sql) === TRUE) {
-        
-    } else {
-        echo "Chyba: " . $sql . "<br>" . $conn->error;
-    }
-}
-
-$conn->close();
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -298,15 +262,18 @@ $conn->close();
                     <button onclick="searchPage()">Hledat</button>
                           </div>
             
-                          <div style="display:block;">
-              <button onclick="goToEditor()" class="button-link" >Vytvořit obsah</button>
-                  </div>
+                
                 
 
                     <h1 style="text-align: center;font-size: 4em">HTML</h1><br>
                   
                     <h2 style="text-align: center;">Vítejte v Kurzu HTML, naučíte se zde základ jazyku HTML.</h2><br>
                     <h2 style="text-align: center;">Na levé straně si vyberte, jakou část HTML se chcete naučit, nebo vyhledejte podle klíčového slova.</h2><br>
+                    <h2 style="text-align: center;">Můžete si zde vytvořit svůj vlastní obsah, jestli vám něco zde chybí. Jen klikněte na tlačítko "Vytvořit vlastní obsah"</h2><br>
+
+                    <div style="display:block;text-align:center;">
+              <button onclick="goToEditor()" class="button-link" >Vytvořit vlastní obsah</button>
+                  </div>
 
                   <div style="display:block">
                     <h1>Váš obsah</h1>
@@ -357,20 +324,16 @@ $conn->close();
 
     <h3 style="text-align:center">HTML je základním nástrojem pro vytváření stránek na internetu. S jeho pomocí můžete strukturovat obsah, přidávat obrázky, odkazy, formuláře a mnoho dalšího. Nyní můžete začít s tvorbou vlastních webových stránek.</h3><br>
         
-                 <form method="post" id="Form">
-                    <label for="Title">Title:</label>
-                    <input type="text" id="Title" name="Title" required>
-                    <label for="Obsah">Obsah:</label>
-                    <input type="text" id="Obsah" name="Obsah" required>
-
-
-                    <button type="submit">Send Message</button>
-                </form>
+              
            
               </div>
               
                
             </div>
+
+
+<!-- Prvky -->
+
 
 
             <div id="Prvky">
@@ -605,18 +568,6 @@ $conn->close();
 
 
     <h3 style="text-align:center">Toto jsou jen základní HTML prvky. Existuje mnoho dalších prvků, které můžete používat k vytváření struktury a obsahu webových stránek.</h3>
-
-    <form id="contentForm">
-    <label for="pageTitle">Title:</label>
-    <input type="text" id="pageTitle" name="pageTitle" required>
-    
-    <label for="pageContent">Content:</label>
-    <textarea id="pageContent" name="pageContent" required></textarea>
-    
-    <button type="button" onclick="saveContent()">Save Content</button>
-</form>
-
-    
 
 
             </div>

@@ -69,7 +69,7 @@
     <header>
 
 <div style="display:block;background-color:black;opacity: 0.7;color:white;padding:5%;">
-<h1>Vytvoř kontent</h1>
+<h1>Vytvoř obsah</h1>
 </div>
 <div style="display:block;">
     
