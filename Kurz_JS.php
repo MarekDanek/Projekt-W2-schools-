@@ -1,39 +1,3 @@
-<?php
-$DATABASE_HOST = 'localhost';
-$DATABASE_USER = 'root';
-$DATABASE_PASS = '';
-$DATABASE_NAME = 'w2_schools';
-
-$conn = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-
-if (mysqli_connect_errno()){
-    echo "Nepodařilo se připojit k MySql: ". mysqli_connect_errno();
-    exit();
-    
-}else{
-    // echo "je pripojeno";
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Získání dat z formuláře
-    $title = $_POST["Title"];
-    $obsah = $_POST["Obsah"];
-
-    // Uložení dat do databáze
-    $sql = "INSERT INTO UserContent (Title, Obsah) VALUES ('$title', '$obsah')";
-
-    if ($conn->query($sql) === TRUE) {
-        
-    } else {
-        echo "Chyba: " . $sql . "<br>" . $conn->error;
-    }
-}
-
-$conn->close();
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +5,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tiny.cloud/1/ff64eh8dhqc8jrxg2u6y012u6f30leosxjppmc0zxq5jpbvi/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <title>Učení HTML</title>
+    <title>Učení JS</title>
     <style>
         body {
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -314,7 +278,34 @@ $conn->close();
             <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"  class="editable-title"  id="pageTitle">
 
             <h1 style="text-align: center;font-size: 4em">Úvod</h1><br>
-       
+
+            <h3 style="text-align:center">JS (JavaScript) je jazyk používaný pro tvorbu interaktivních webových stránek na klientovi.</h3><br>
+            <h3 style="text-align:center"><code>JS můžete psát přímo v souboru html -> &lt;script&gt;&lt;/script&gt; nebo si vytvořit soubor.js a do něj psát samostatný js kód.</code></h3><br>
+
+            <div style="display:block;" id="code-container">
+                            <code>
+                                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comnment">Základní kostra JS</p>
+  
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br><br><br>
+                
+                &lt;script&gt;<br> <br> 
+                 //zde se píše js kód<br><br> 
+                &lt;/script&gt;<br>  
+                       
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+        </div>
+        <br>
+
+        <h3 style="text-align:center">JS umožňuje měnit obsah v HTML s pomocí -> document.getElementById("demo").innerHTML = "Hello JavaScript";.</h3><br>
           
            
               </div>

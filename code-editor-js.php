@@ -52,7 +52,8 @@
 <body>
   <div id="editor-container">
     <!-- JavaScript editor -->
-    <textarea id="code-editor">// JS Editor
+    <textarea id="code-editor">
+      // JS Editor
 console.log("Hello, world!");</textarea>
   </div>
 
