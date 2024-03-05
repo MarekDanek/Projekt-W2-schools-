@@ -11,62 +11,23 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   // Pokud uživatel není přihlášen, můžete zobrazit odkaz na přihlašovací stránku nebo nějaké jiné akce
   echo 'Prosím, přihlaste se <a href="login.php">zde</a>.';
 }
-
-$DATABASE_HOST = 'localhost';
-$DATABASE_USER = 'root';
-$DATABASE_PASS = '';
-$DATABASE_NAME = 'w2_schools';
-
-$conn = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-if (mysqli_connect_errno()) {
-  exit('Nepřipojeno k MySQL: ' . mysqli_connect_error());
-}
-
-if (isset($_POST['submit'])) {
-
-  $username = mysqli_real_escape_string($conn, $_POST['username']);
-  $password = mysqli_real_escape_string($conn, $_POST['password']);
-  $hash = password_hash($password, PASSWORD_DEFAULT);
-  $email = mysqli_real_escape_string($conn, $_POST['email']);
-
-
-  $select = " SELECT * FROM users WHERE Username = '$username' && Password = '$password' && Email = '$email' ";
-
-  $result = mysqli_query($conn, $select);
-
-  if (mysqli_num_rows($result) > 0) {
-
-    $error[] = 'uživatel již existuje!';
-
-
-  } else {
-    $insert = "INSERT INTO users (Username, Password, Email) VALUES('$username','$hash','$email')";
-    mysqli_query($conn, $insert);
-    header('location:login.php');
-
-  }
-}
-;
-
 ?>
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <meta charset="utf-8">
+  <title>Přihlášení</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="icon" href="icon_guitar.jpg">
   <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="icon" href="icon_guitar.jpg">
   <style>
     * {
       box-sizing: border-box;
     }
+
 
     header {
       background-image: url("background-modified.png");
@@ -75,7 +36,7 @@ if (isset($_POST['submit'])) {
       background-position: center;
     }
 
-    .Register {
+    .login {
       width: 500px;
       background-color: #ffffff;
       box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
@@ -83,7 +44,7 @@ if (isset($_POST['submit'])) {
       border: solid black 4px;
     }
 
-    .Register h1 {
+    .login h1 {
       text-align: center;
       color: #5b6574;
       font-size: 24px;
@@ -91,14 +52,14 @@ if (isset($_POST['submit'])) {
       border-bottom: 1px solid #dee0e4;
     }
 
-    .Register form {
+    .login form {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       padding-top: 20px;
     }
 
-    .Register form label {
+    .login form label {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -108,9 +69,8 @@ if (isset($_POST['submit'])) {
       color: #ffffff;
     }
 
-    .Register form input[type="password"],
-    .Register form input[type="text"],
-    .Register form input[type="email"] {
+    .login form input[type="password"],
+    .login form input[type="text"] {
       width: 410px;
       height: 50px;
       border: 1px solid #dee0e4;
@@ -118,7 +78,7 @@ if (isset($_POST['submit'])) {
       padding: 0 15px;
     }
 
-    .Register form input[type="submit"] {
+    .login form input[type="submit"] {
       width: 100%;
       padding: 15px;
       margin-top: 20px;
@@ -130,7 +90,7 @@ if (isset($_POST['submit'])) {
       transition: background-color 0.2s;
     }
 
-    .Register form input[type="submit"]:hover {
+    .login form input[type="submit"]:hover {
       background-color: grey;
       transition: background-color 0.2s;
     }
@@ -270,15 +230,10 @@ if (isset($_POST['submit'])) {
       /* Změna barvy kříže po najetí myší */
     }
   </style>
-  <title>Registrování</title>
-
 </head>
 
 <body>
-
-
   <header>
-
     <div>
 
       <div style=" float: right; margin-right: 1%;" class="logo">
@@ -320,41 +275,43 @@ if (isset($_POST['submit'])) {
         </a>
       </div>
 
-      <body class="Registredin">
 
-        <div class="Register">
-          <h1>Registrování</h1>
-          <form method="post">
-            <label for="username">
-              <i class="fas fa-user"></i>
-            </label>
-            <input type="text" name="username" placeholder="Jméno" id="username" required>
-            <label for="password">
-              <i class="fas fa-lock"></i>
-            </label>
-            <input type="password" name="password" placeholder="Heslo" id="password" required>
-            <label for="email">
-              <i class="fas fa-envelope"></i>
-            </label>
-            <input type="email" name="email" placeholder="Email" id="email" required>
-            <input type="submit" name="submit" value="Registrovat">
-          </form>
-        </div>
 
+
+      <div class="login">
+        <h1>Přihlášení</h1>
+        <form action="authenticate.php" method="post">
+          <label for="username">
+            <i class="fas fa-user"></i>
+          </label>
+          <input type="text" name="username" placeholder="Jméno" id="username" required>
+          <label for="password">
+            <i class="fas fa-lock"></i>
+          </label>
+          <input type="password" name="password" placeholder="Heslo" id="password" required>
+
+          <a href="register_form.php">
+            <p
+              style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;;color: black;">
+              <b>Nemáte účet? Registrujte se</b>
+            </p>
+          </a>
+          <input type="submit" value="Přihlásit">
         </form>
+      </div>
 
-        <div id="noteFormContainer">
-          <span style="float: right;" class="closeBtn" onclick="closeForm()">&times;</span>
-          <h2>Napište poznatek</h2>
-          <form id="noteForm" method="post">
-            <label for="poznatek">Poznatky:</label><br>
-            <textarea id="Poznatek" name="Poznatek" rows="8" cols="100"
-              style="max-block-size: 200px; max-width: 600px;"></textarea><br>
-            <input
-              style="background-color: #3B3B3B; color: white;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 25px; padding : 10px"
-              type="submit" value="Odeslat">
-          </form>
-        </div>
+      <div id="noteFormContainer">
+        <span style="float: right;" class="closeBtn" onclick="closeForm()">&times;</span>
+        <h2>Napište poznatek</h2>
+        <form id="noteForm" method="post">
+          <label for="poznatek">Poznatky:</label><br>
+          <textarea id="Poznatek" name="Poznatek" rows="8" cols="100"
+            style="max-block-size: 200px; max-width: 600px;"></textarea><br>
+          <input
+            style="background-color: #3B3B3B; color: white;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 25px; padding : 10px"
+            type="submit" value="Odeslat">
+        </form>
+      </div>
 
 
   </header>
@@ -407,6 +364,9 @@ if (isset($_POST['submit'])) {
     }
 
   </script>
+
+
+
 
 
 </body>
