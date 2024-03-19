@@ -3,7 +3,7 @@
 session_start();
 
 // Zkontrolujte, zda je uživatel přihlášen
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+if (isset ($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     // Uživatel je přihlášen, můžete zobrazit například jeho jméno
     echo 'Vítejte, ' . $_SESSION['name'] . '!';
     // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
@@ -42,8 +42,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Chyba: " . $sql . "<br>" . $conn->error;
     }
 }
+function getQuestionsByLevel($conn, $level)
+{
+    $questions = [];
+
+    // Získání otázek z databáze podle úrovně
+    $query = "SELECT * FROM questions WHERE level = $level";
+    $result = mysqli_query($conn, $query);
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $questionText = $row['question_text'];
+        $questionId = $row['question_id'];
+
+        // Získání odpovědí na danou otázku
+        $answersQuery = "SELECT * FROM answers WHERE question_id = $questionId";
+        $answersResult = mysqli_query($conn, $answersQuery);
+
+        // Pole pro uchování odpovědí
+        $answers = [];
+
+        while ($answerRow = mysqli_fetch_assoc($answersResult)) {
+            // Uložení odpovědi do pole
+            $answers[] = array(
+                'answer_text' => $answerRow['answer_text'],
+                'is_correct' => $answerRow['is_correct']
+            );
+        }
+
+        // Přidání otázky s odpověďmi do seznamu otázek
+        $questions[] = array(
+            'question' => $questionText,
+            'answers' => $answers
+        );
+    }
+
+    return $questions;
+}
+
+$questionsLevel1 = getQuestionsByLevel($conn, 1);
+$questionsLevel2 = getQuestionsByLevel($conn, 2);
+$questionsLevel3 = getQuestionsByLevel($conn, 3);
+
 
 $conn->close();
+
+
 ?>
 
 
@@ -245,6 +288,23 @@ $conn->close();
                     <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"
                         class="editable-title" id="pageTitle">
 
+                        <ul>
+                            <?php foreach ($questionsLevel1 as $question): ?>
+                                <li>
+                                    <p>
+                                        <?php echo $question['question']; ?>
+                                    </p>
+                                    <form>
+                                        <?php foreach ($question['answers'] as $answer): ?>
+                                            <label>
+                                                <input type="radio" name="answer" value="<?php echo $answer['answer_text']; ?>">
+                                                <?php echo $answer['answer_text']; ?>
+                                            </label><br>
+                                        <?php endforeach; ?>
+                                    </form>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
 
 
 
@@ -257,7 +317,23 @@ $conn->close();
                     <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"
                         class="editable-title" id="pageTitle">
 
-
+                        <ul>
+                            <?php foreach ($questionsLevel2 as $question): ?>
+                                <li>
+                                    <p>
+                                        <?php echo $question['question']; ?>
+                                    </p>
+                                    <form>
+                                        <?php foreach ($question['answers'] as $answer): ?>
+                                            <label>
+                                                <input type="radio" name="answer" value="<?php echo $answer['answer_text']; ?>">
+                                                <?php echo $answer['answer_text']; ?>
+                                            </label><br>
+                                        <?php endforeach; ?>
+                                    </form>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
 
 
 
@@ -269,7 +345,23 @@ $conn->close();
                     <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"
                         class="editable-title" id="pageTitle">
 
-
+                        <ul>
+                            <?php foreach ($questionsLevel3 as $question): ?>
+                                <li>
+                                    <p>
+                                        <?php echo $question['question']; ?>
+                                    </p>
+                                    <form>
+                                        <?php foreach ($question['answers'] as $answer): ?>
+                                            <label>
+                                                <input type="radio" name="answer" value="<?php echo $answer['answer_text']; ?>">
+                                                <?php echo $answer['answer_text']; ?>
+                                            </label><br>
+                                        <?php endforeach; ?>
+                                    </form>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
 
 
 
