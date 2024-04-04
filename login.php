@@ -269,6 +269,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
           </div>
         </div>
         <a href="login.php"><b>Přihlášení</b></a>
+        <a href="Profil.php"><b>Profil</b></a>
         <a href="javascript:void(0);" class="icon" onclick="ResponsiveNavbar()">
           <i class="fa fa-bars"></i>
 

@@ -1,9 +1,7 @@
 <?php
-
 session_start();
 
-// Zkontrolujte, zda je uživatel přihlášen
-if (isset ($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     // Uživatel je přihlášen, můžete zobrazit například jeho jméno
     echo 'Vítejte, ' . $_SESSION['name'] . '!';
     // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
@@ -13,6 +11,7 @@ if (isset ($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     echo 'Prosím, přihlaste se <a href="login.php">zde</a>.';
 }
 
+// Připojení k databázi
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
@@ -21,27 +20,11 @@ $DATABASE_NAME = 'w2_schools';
 $conn = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 
 if (mysqli_connect_errno()) {
-    echo "Nepodařilo se připojit k MySql: " . mysqli_connect_errno();
+    echo "Nepodařilo se připojit k MySQL: " . mysqli_connect_errno();
     exit();
-
-} else {
-    // echo "je pripojeno";
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Získání dat z formuláře
-    $title = $_POST["Title"];
-    $obsah = $_POST["Obsah"];
-
-    // Uložení dat do databáze
-    $sql = "INSERT INTO UserContent (Title, Obsah) VALUES ('$title', '$obsah')";
-
-    if ($conn->query($sql) === TRUE) {
-
-    } else {
-        echo "Chyba: " . $sql . "<br>" . $conn->error;
-    }
-}
+// Funkce pro získání otázek podle úrovně
 function getQuestionsByLevel($conn, $level)
 {
     $questions = [];
@@ -64,6 +47,7 @@ function getQuestionsByLevel($conn, $level)
         while ($answerRow = mysqli_fetch_assoc($answersResult)) {
             // Uložení odpovědi do pole
             $answers[] = array(
+                'answer_id' => $answerRow['answer_id'],
                 'answer_text' => $answerRow['answer_text'],
                 'is_correct' => $answerRow['is_correct']
             );
@@ -71,6 +55,7 @@ function getQuestionsByLevel($conn, $level)
 
         // Přidání otázky s odpověďmi do seznamu otázek
         $questions[] = array(
+            'question_id' => $questionId,
             'question' => $questionText,
             'answers' => $answers
         );
@@ -79,15 +64,53 @@ function getQuestionsByLevel($conn, $level)
     return $questions;
 }
 
+// Staticky nastavíme správné odpovědi podle dat z databáze
+$correctAnswers = [];
+$query = "SELECT question_id, answer_id FROM answers WHERE is_correct = 1";
+$result = mysqli_query($conn, $query);
+while ($row = mysqli_fetch_assoc($result)) {
+    $correctAnswers[$row['question_id']] = $row['answer_id'];
+}
+
+// Zpracování odeslaného formuláře
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $totalQuestions = 0;
+    $totalCorrect = 0;
+
+    foreach ($_POST as $key => $value) {
+        // Kontrola, zda je klíč odpovědí
+        if (strpos($key, 'answer_') === 0) {
+            $questionId = substr($key, strlen('answer_'));
+            $selectedAnswerId = $value;
+
+            // Zkontrolujeme, zda je zvolená odpověď správná
+            if (isset($correctAnswers[$questionId]) && $correctAnswers[$questionId] == $selectedAnswerId) {
+                $totalCorrect++;
+            }
+
+            $totalQuestions++;
+        }
+    }
+
+    // Výpočet procentuálního výsledku
+    $percentage = ($totalCorrect / $totalQuestions) * 100;
+
+    // Uložení výsledků do databáze
+    $userId = ($_SESSION['id']);
+    $query = "INSERT INTO test_results (user_id, test_level, total_questions, total_correct, percentage) VALUES ('$userId', '1', '$totalQuestions', '$totalCorrect', '$percentage')";
+    mysqli_query($conn, $query);
+
+}
+
+// Získání otázek různých úrovní
 $questionsLevel1 = getQuestionsByLevel($conn, 1);
 $questionsLevel2 = getQuestionsByLevel($conn, 2);
 $questionsLevel3 = getQuestionsByLevel($conn, 3);
 
-
-$conn->close();
-
-
+// Uzavření spojení s databází
+mysqli_close($conn);
 ?>
+
 
 
 
@@ -169,7 +192,7 @@ $conn->close();
         .content {
             margin-left: 200px;
             padding: 1px 16px;
-            height: 900%;
+            height: 100%;
 
         }
 
@@ -228,6 +251,33 @@ $conn->close();
             background-color: black;
             color: white;
         }
+
+        /* Styly pro tlačítko */
+        #submit-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        #submit-btn:hover {
+            background-color: darkgray;
+            color: black;
+        }
+
+        .results {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -248,7 +298,7 @@ $conn->close();
             <!-- Boční panel s odkazy na stránky -->
             <div class="sidebar">
                 <a style="background-color:#3B3B3B;" href="Hlavni_stranka.php"><b>DOMŮ</b></a>
-                <a onclick="changeContent('Testy')" class="active">Testy</a>
+                <a onclick="changeContent('Testy')" class="active">Testy HTML</a>
                 <a onclick="changeContent('1.uroven')">1.Úroveň</a>
                 <a onclick="changeContent('2.uroven')">2.Úroveň</a>
                 <a onclick="changeContent('3.uroven')">3.Úroveň</a>
@@ -282,32 +332,47 @@ $conn->close();
 
                 </div>
 
-
                 <div id="1.uroven">
-
                     <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"
                         class="editable-title" id="pageTitle">
 
-                        <ul>
-                            <?php foreach ($questionsLevel1 as $question): ?>
-                                <li>
-                                    <p>
-                                        <?php echo $question['question']; ?>
-                                    </p>
-                                    <form>
+                        <h1 style="font-size: 4em">Test úrovně 1</h1><br>
+
+                        <form method="post" id="form_level1" onsubmit="return validateForm()">
+                            <ul>
+                                <?php foreach ($questionsLevel1 as $question): ?>
+                                    <li>
+                                        <p>
+                                            <?php echo $question['question']; ?>
+                                        </p>
                                         <?php foreach ($question['answers'] as $answer): ?>
                                             <label>
-                                                <input type="radio" name="answer" value="<?php echo $answer['answer_text']; ?>">
+                                                <input type="radio" name="answer_<?php echo $question['question_id']; ?>"
+                                                    value="<?php echo $answer['answer_id']; ?>">
                                                 <?php echo $answer['answer_text']; ?>
                                             </label><br>
                                         <?php endforeach; ?>
-                                    </form>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <!-- Jeden společný button pro odeslání odpovědí všech otázek -->
+                            <button type="submit" name="submit" id="submit_level1">Odeslat odpovědi</button>
+                        </form>
 
 
-
+                        <?php if (isset($percentage)): ?>
+                            <div class="results">
+                                <p>Počet správných odpovědí:
+                                    <?php echo $totalCorrect; ?>
+                                </p>,
+                                <p>Počet chybných odpovědí:
+                                    <?php echo $totalQuestions - $totalCorrect; ?>
+                                </p>,
+                                <p>Procentuální úspěšnost:
+                                    <?php echo round($percentage, 2); ?>%
+                                </p>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -317,25 +382,47 @@ $conn->close();
                     <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"
                         class="editable-title" id="pageTitle">
 
-                        <ul>
-                            <?php foreach ($questionsLevel2 as $question): ?>
-                                <li>
-                                    <p>
-                                        <?php echo $question['question']; ?>
-                                    </p>
-                                    <form>
+                        <h1 style="font-size: 4em">Test úrovně 2</h1><br>
+
+                        <form method="post">
+                            <ul>
+                                <?php foreach ($questionsLevel2 as $question): ?>
+                                    <li>
+                                        <p>
+                                            <?php echo $question['question']; ?>
+                                        </p>
                                         <?php foreach ($question['answers'] as $answer): ?>
                                             <label>
-                                                <input type="radio" name="answer" value="<?php echo $answer['answer_text']; ?>">
+                                                <input type="radio" name="answer_<?php echo $question['question_id']; ?>"
+                                                    value="<?php echo $answer['answer_id']; ?>">
                                                 <?php echo $answer['answer_text']; ?>
                                             </label><br>
                                         <?php endforeach; ?>
-                                    </form>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <!-- Jeden společný button pro odeslání odpovědí všech otázek -->
+                            <button type="submit" name="submit" id="submit_level2">Odeslat odpovědi</button>
+                        </form>
 
+                        <!-- Tlačítko pro stažení výsledků PDF -->
+                        <form method="post">
+                            <button type="submit" name="download_pdf">Stáhnout výsledky PDF</button>
+                        </form>
 
+                        <?php if (isset($percentage)): ?>
+                            <div class="results">
+                                <p>Počet správných odpovědí:
+                                    <?php echo $totalCorrect; ?>
+                                </p>,
+                                <p>Počet chybných odpovědí:
+                                    <?php echo $totalQuestions - $totalCorrect; ?>
+                                </p>,
+                                <p>Procentuální úspěšnost:
+                                    <?php echo round($percentage, 2); ?>%
+                                </p>
+                            </div>
+                        <?php endif; ?>
 
                     </div>
                 </div>
@@ -345,35 +432,43 @@ $conn->close();
                     <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"
                         class="editable-title" id="pageTitle">
 
-                        <ul>
-                            <?php foreach ($questionsLevel3 as $question): ?>
-                                <li>
-                                    <p>
-                                        <?php echo $question['question']; ?>
-                                    </p>
-                                    <form>
+                        <h1 style="font-size: 4em">Test úrovně 3</h1><br>
+
+                        <form method="post">
+                            <ul>
+                                <?php foreach ($questionsLevel3 as $question): ?>
+                                    <li>
+                                        <p>
+                                            <?php echo $question['question']; ?>
+                                        </p>
                                         <?php foreach ($question['answers'] as $answer): ?>
                                             <label>
-                                                <input type="radio" name="answer" value="<?php echo $answer['answer_text']; ?>">
+                                                <input type="radio" name="answer_<?php echo $question['question_id']; ?>"
+                                                    value="<?php echo $answer['answer_id']; ?>">
                                                 <?php echo $answer['answer_text']; ?>
                                             </label><br>
                                         <?php endforeach; ?>
-                                    </form>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-
-
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <!-- Jeden společný button pro odeslání odpovědí všech otázek -->
+                            <button type="submit" name="submit" id="submit_level3">Odeslat odpovědi</button>
+                        </form>
+                        <?php if (isset($percentage)): ?>
+                            <div class="results">
+                                <p>Počet správných odpovědí:
+                                    <?php echo $totalCorrect; ?>
+                                </p>,
+                                <p>Počet chybných odpovědí:
+                                    <?php echo $totalQuestions - $totalCorrect; ?>
+                                </p>,
+                                <p>Procentuální úspěšnost:
+                                    <?php echo round($percentage, 2); ?>%
+                                </p>
+                            </div>
+                        <?php endif; ?>
 
                     </div>
-
-
-
-                </div>
-
-            </div>
-
-
 
     </header>
 
@@ -397,6 +492,8 @@ $conn->close();
                 pageElement.classList.add('active');
             }
         }
+
+
 
 
 
