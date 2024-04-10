@@ -4,10 +4,10 @@ session_start();
 
 // Zkontrolujte, zda je uživatel přihlášen
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-  // Uživatel je přihlášen, můžete zobrazit například jeho jméno
-  echo 'Vítejte, ' . $_SESSION['name'] . '!';
-  // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
-  echo '<a href="logout.php">Odhlásit se</a>';
+  // // Uživatel je přihlášen, můžete zobrazit například jeho jméno
+  // echo 'Vítejte, ' . $_SESSION['name'] . '!';
+  // // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
+  // echo '<a href="logout.php">Odhlásit se</a>';
 } else {
   // Pokud uživatel není přihlášen, můžete zobrazit odkaz na přihlašovací stránku nebo nějaké jiné akce
   echo 'Prosím, přihlaste se <a href="login.php">zde</a>.';
@@ -31,9 +31,10 @@ if (mysqli_connect_errno()) {
 if (isset($_POST['Poznatek'])) {
   $poznatek = mysqli_real_escape_string($conn, $_POST['Poznatek']);
   $datum = date("Y-m-d H:i:s"); // Aktuální datum a čas
+  $userId = $_SESSION['id'];
 
   // Příprava dotazu pro vložení nové poznámky do databáze
-  $insert = "INSERT INTO usernotes (NoteText, DateCreated) VALUES('$poznatek','$datum')";
+  $insert = "INSERT INTO usernotes (NoteText,UserID,DateCreated) VALUES('$poznatek','$userId','$datum')";
   mysqli_query($conn, $insert);
 
   header("Location: Hlavni_stranka.php");

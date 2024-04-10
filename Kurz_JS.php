@@ -3,10 +3,10 @@ session_start();
 
 // Zkontrolujte, zda je uživatel přihlášen
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-    // Uživatel je přihlášen, můžete zobrazit například jeho jméno
-    echo 'Vítejte, ' . $_SESSION['name'] . '!';
-    // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
-    echo '<a href="Hlavni_stranka.php">Odhlásit se</a>';
+    // // Uživatel je přihlášen, můžete zobrazit například jeho jméno
+    // echo 'Vítejte, ' . $_SESSION['name'] . '!';
+    // // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
+    // echo '<a href="Hlavni_stranka.php">Odhlásit se</a>';
 } else {
     // Pokud uživatel není přihlášen, můžete zobrazit odkaz na přihlašovací stránku nebo nějaké jiné akce
     echo 'Prosím, přihlaste se <a href="login.php">zde</a>.';

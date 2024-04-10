@@ -2,10 +2,10 @@
 session_start();
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-    // Uživatel je přihlášen, můžete zobrazit například jeho jméno
-    echo 'Vítejte, ' . $_SESSION['name'] . '!';
-    // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
-    echo '<a href="logout.php">Odhlásit se</a>';
+    // // Uživatel je přihlášen, můžete zobrazit například jeho jméno
+    // echo 'Vítejte, ' . $_SESSION['name'] . '!';
+    // // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
+    // echo '<a href="logout.php">Odhlásit se</a>';
 } else {
     // Pokud uživatel není přihlášen, přesměrujte ho na přihlašovací stránku
     header("Location: login.php");
@@ -63,18 +63,28 @@ function generateAndDownloadPDF($conn)
         $totalQuestions = $row['total_questions'];
         $totalCorrect = $row['total_correct'];
         $percentage = $row['percentage'];
+        $test_level = $row['test_level'];
         $date = $row['test_date'];
         $username = $_SESSION['name'];
 
         // Vložení obsahu do PDF
         $content = '
-        <h1>Výsledky testu</h1>
-        <h2><p>Jméno: ' . $username . '</p></h2>
-        <h3>Datum splneni: ' . $date . '</h3>
-        <h3>Pocet otázek: ' . $totalQuestions . '</h3>
-        <h3>Pocet správných odpovedi: ' . $totalCorrect . '</h3>
-        <h3>Procenta: ' . round($percentage, 2) . '%</h3>
+       <h1>Výsledky testu</h1>
+<h2><p>' . htmlspecialchars('Uroven testu: ', ENT_QUOTES, 'UTF-8') . $test_level . '</p></h2>
+<h2><p>' . htmlspecialchars('Jmeno: ', ENT_QUOTES, 'UTF-8') . $username . '</p></h2>
+<h3>' . htmlspecialchars('Datum splneni: ', ENT_QUOTES, 'UTF-8') . $date . '</h3>
+<h3>' . htmlspecialchars('Pocet otazek: ', ENT_QUOTES, 'UTF-8') . $totalQuestions . '</h3>
+<h3>' . htmlspecialchars('Pocet spravnych odpovedi: ', ENT_QUOTES, 'UTF-8') . $totalCorrect . '</h3>
+<h3>' . htmlspecialchars('Procenta: ', ENT_QUOTES, 'UTF-8') . $percentage . '%</h3>
         ';
+
+        // Podmínka pro zobrazení výsledku "uspěl" nebo "neuspěl"
+        if ($percentage >= 70) {
+            $content .= '<h2 style="color: green;">Prospel</h2>';
+        } else {
+            $content .= '<h2 style="color: red;">Neuspel</h2>';
+        }
+
         $pdf->writeHTML($content, true, false, true, false, '');
     } else {
         // Pokud nejsou v databázi žádné výsledky, zobrazte vhodnou zprávu
@@ -98,6 +108,20 @@ function generateAndDownloadPDF($conn)
 // Ověření, zda bylo kliknuto na tlačítko pro stahování PDF
 if (isset($_POST['download_pdf'])) {
     generateAndDownloadPDF($conn); // Zavolání funkce pro generování a stahování PDF
+}
+
+
+if (isset($_POST['Poznatek'])) {
+    $poznatek = mysqli_real_escape_string($conn, $_POST['Poznatek']);
+    $datum = date("Y-m-d H:i:s"); // Aktuální datum a čas
+    $userId = $_SESSION['id'];
+
+    // Příprava dotazu pro vložení nové poznámky do databáze
+    $insert = "INSERT INTO usernotes (NoteText,UserID,DateCreated) VALUES('$poznatek','$userId','$datum')";
+    mysqli_query($conn, $insert);
+
+    header("Location: Hlavni_stranka.php");
+    exit;
 }
 ?>
 
@@ -283,6 +307,40 @@ if (isset($_POST['download_pdf'])) {
         display: block;
 
     }
+
+    #noteFormContainer {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #525252;
+        color: white;
+    }
+
+
+    #noteFormContainer.show {
+        display: block;
+    }
+
+    .closeBtn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        /* Nastavení kurzoru na pointer */
+    }
+
+    .closeBtn:hover {
+        color: blue;
+        /* Změna barvy kříže po najetí myší */
+    }
 </style>
 
 <body>
@@ -327,6 +385,19 @@ if (isset($_POST['download_pdf'])) {
             </a>
         </div>
 
+        <div id="noteFormContainer">
+            <span style="float: right;" class="closeBtn" onclick="closeForm()">&times;</span>
+            <h2>Napište poznatek</h2>
+            <form id="noteForm" method="post">
+                <label for="poznatek">Poznatky:</label><br>
+                <textarea id="Poznatek" name="Poznatek" rows="8" cols="100"
+                    style="max-block-size: 200px; max-width: 600px;"></textarea><br>
+                <input
+                    style="background-color: #3B3B3B; color: white;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 25px; padding : 10px"
+                    type="submit" value="Odeslat">
+            </form>
+        </div>
+
         <div class="container" style="display:block;background-color:black;opacity: 0.9;color:white;padding: 5%;">
 
             <div class="content">
@@ -341,17 +412,39 @@ if (isset($_POST['download_pdf'])) {
                 </p>
 
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <label style="font-size : 2em" for="submit"> Certikát : </label>
+                    <label style="font-size : 2em" for="submit"> Certifikát : </label>
                     <button class="button-link" type="submit" name="download_pdf">Stáhnout</button>
                 </form>
                 <div class="logout-btn">
-                    <a href="logout.php">Logout</a>
+                    <a style="background-color: red" href="logout.php">Odhlásit se</a>
                 </div>
             </div>
 
 
         </div>
     </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const showFormBtn = document.getElementById('showFormBtn');
+            const noteFormContainer = document.getElementById('noteFormContainer');
+
+            // Přidání posluchače události pro zobrazení formuláře po kliknutí na tlačítko
+            showFormBtn.addEventListener('click', function () {
+                noteFormContainer.classList.toggle('show');
+            });
+
+            // Přidání posluchače události pro skrytí formuláře po odeslání
+            const noteForm = document.getElementById('noteForm');
+            noteForm.addEventListener('submit', function () {
+                noteFormContainer.classList.remove('show');
+            });
+        });
+
+        function closeForm() {
+            document.getElementById('noteFormContainer').classList.remove('show');
+        }
+    </script>
 </body>
 
 </html>

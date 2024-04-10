@@ -2,10 +2,10 @@
 session_start();
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-    // Uživatel je přihlášen, můžete zobrazit například jeho jméno
-    echo 'Vítejte, ' . $_SESSION['name'] . '!';
-    // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
-    echo '<a href="logout.php">Odhlásit se</a>';
+    // // Uživatel je přihlášen, můžete zobrazit například jeho jméno
+    // echo 'Vítejte, ' . $_SESSION['name'] . '!';
+    // // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
+    // echo '<a href="logout.php">Odhlásit se</a>';
 } else {
     // Pokud uživatel není přihlášen, můžete zobrazit odkaz na přihlašovací stránku nebo nějaké jiné akce
     echo 'Prosím, přihlaste se <a href="login.php">zde</a>.';
@@ -64,7 +64,7 @@ function getQuestionsByLevel($conn, $level)
     return $questions;
 }
 
-// Staticky nastavíme správné odpovědi podle dat z databáze
+// Statický nastavení správné odpovědi podle dat z databáze
 $correctAnswers = [];
 $query = "SELECT question_id, answer_id FROM answers WHERE is_correct = 1";
 $result = mysqli_query($conn, $query);
@@ -95,10 +95,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Výpočet procentuálního výsledku
     $percentage = ($totalCorrect / $totalQuestions) * 100;
 
-    // Uložení výsledků do databáze
-    $userId = ($_SESSION['id']);
-    $query = "INSERT INTO test_results (user_id, test_level, total_questions, total_correct, percentage) VALUES ('$userId', '1', '$totalQuestions', '$totalCorrect', '$percentage')";
-    mysqli_query($conn, $query);
+
+    // Zpracování odeslaného formuláře
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+
+        // Zkontrolujte, zda jsou potřebné indexy v poli $_POST přítomny
+        $level1 = isset($_POST['level1']) ? $_POST['level1'] : null;
+        $level2 = isset($_POST['level2']) ? $_POST['level2'] : null;
+        $level3 = isset($_POST['level3']) ? $_POST['level3'] : null;
+
+
+        if (isset($_POST['level1'])) {
+            $level = $_POST['level1'];
+        } elseif (isset($_POST['level2'])) {
+            $level = $_POST['level2'];
+        } elseif (isset($_POST['level3'])) {
+            $level = $_POST['level3'];
+        } else {
+            $level = null;
+        }
+
+        if ($level !== null) {
+            // Kontrola, zda je uživatel přihlášen
+            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['id'])) {
+                $userId = $_SESSION['id'];
+                // Uložení výsledků do databáze
+                $query = "INSERT INTO test_results (user_id, test_level, total_questions, total_correct, percentage) VALUES (?, ?, ?, ?, ?)";
+                $statement = mysqli_prepare($conn, $query);
+                mysqli_stmt_bind_param($statement, "iiiii", $userId, $level, $totalQuestions, $totalCorrect, $percentage);
+                mysqli_stmt_execute($statement);
+                mysqli_stmt_close($statement);
+            } else {
+                // Uživatel není přihlášen
+                echo "Uživatel není přihlášen.";
+            }
+        } else {
+            // Úroveň testu není platná
+            echo "Neplatná úroveň testu.";
+        }
+        $message = "Test byl úspěšně odeslán, stáhněte si certifikát a zjistěte výsledky v profilu";
+        // Vložení kódu JavaScriptu do PHP
+        echo '<script>alert("' . $message . '");</script>';
+    }
+
+
+
+
+
+
+    // // Uložení výsledků do databáze
+    // $userId = ($_SESSION['id']);
+    // $query = "INSERT INTO test_results (user_id, test_level, total_questions, total_correct, percentage) VALUES ('$userId', '$level', '$totalQuestions', '$totalCorrect', '$percentage')";
+    // mysqli_query($conn, $query);
 
 }
 
@@ -299,9 +347,9 @@ mysqli_close($conn);
             <div class="sidebar">
                 <a style="background-color:#3B3B3B;" href="Hlavni_stranka.php"><b>DOMŮ</b></a>
                 <a onclick="changeContent('Testy')" class="active">Testy HTML</a>
-                <a onclick="changeContent('1.uroven')">1.Úroveň</a>
-                <a onclick="changeContent('2.uroven')">2.Úroveň</a>
-                <a onclick="changeContent('3.uroven')">3.Úroveň</a>
+                <a onclick="changeContent('1.uroven'); setTestLevel1(1)">1.Úroveň</a>
+                <a onclick="changeContent('2.uroven'); setTestLevel2(2)">2.Úroveň</a>
+                <a onclick="changeContent('3.uroven'); setTestLevel3(3)">3.Úroveň</a>
 
             </div>
 
@@ -338,7 +386,8 @@ mysqli_close($conn);
 
                         <h1 style="font-size: 4em">Test úrovně 1</h1><br>
 
-                        <form method="post" id="form_level1" onsubmit="return validateForm()">
+                        <form method="post">
+                            <input type="hidden" name="level1" id="level1" value="1">
                             <ul>
                                 <?php foreach ($questionsLevel1 as $question): ?>
                                     <li>
@@ -385,6 +434,7 @@ mysqli_close($conn);
                         <h1 style="font-size: 4em">Test úrovně 2</h1><br>
 
                         <form method="post">
+                            <input type="hidden" name="level2" id="level2" value="2">
                             <ul>
                                 <?php foreach ($questionsLevel2 as $question): ?>
                                     <li>
@@ -405,10 +455,7 @@ mysqli_close($conn);
                             <button type="submit" name="submit" id="submit_level2">Odeslat odpovědi</button>
                         </form>
 
-                        <!-- Tlačítko pro stažení výsledků PDF -->
-                        <form method="post">
-                            <button type="submit" name="download_pdf">Stáhnout výsledky PDF</button>
-                        </form>
+
 
                         <?php if (isset($percentage)): ?>
                             <div class="results">
@@ -435,6 +482,7 @@ mysqli_close($conn);
                         <h1 style="font-size: 4em">Test úrovně 3</h1><br>
 
                         <form method="post">
+                            <input type="hidden" name="level3" id="level3" value="3">
                             <ul>
                                 <?php foreach ($questionsLevel3 as $question): ?>
                                     <li>
@@ -480,6 +528,23 @@ mysqli_close($conn);
             { id: '2.uroven', title: '2.uroven' },
             { id: '3.uroven', title: '3.uroven' }
         ];
+
+        function setTestLevel1(level) {
+            document.getElementById('level1').value = level; // Nastavení úrovně 1 testu
+
+
+        }
+        function setTestLevel2(level) {
+
+            document.getElementById('level2').value = level; // Nastavení úrovně 2 testu
+
+
+        }
+        function setTestLevel3(level) {
+
+            document.getElementById('level3').value = level; // Nastavení úrovně 3 testu
+
+        }
 
         // Funkce pro změnu obsahu stránky
         function changeContent(pageId) {
