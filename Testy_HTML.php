@@ -7,8 +7,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     // // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
     // echo '<a href="logout.php">Odhlásit se</a>';
 } else {
-    // Pokud uživatel není přihlášen, můžete zobrazit odkaz na přihlašovací stránku nebo nějaké jiné akce
-    echo 'Prosím, přihlaste se <a href="login.php">zde</a>.';
+    // Pokud uživatel není přihlášen, přesměrujte ho na přihlašovací stránku
+    header("Location: login.php");
+    exit();
 }
 
 // Připojení k databázi
@@ -74,6 +75,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 // Zpracování odeslaného formuláře
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+
     $totalQuestions = 0;
     $totalCorrect = 0;
 
@@ -148,6 +150,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // $query = "INSERT INTO test_results (user_id, test_level, total_questions, total_correct, percentage) VALUES ('$userId', '$level', '$totalQuestions', '$totalCorrect', '$percentage')";
     // mysqli_query($conn, $query);
 
+}
+
+// Zde zkontrolujeme, zda uživatel již splnil nějaký test
+if (isset($_SESSION['id'])) {
+    $userId = $_SESSION['id'];
+    $query = "SELECT * FROM test_results WHERE user_id = $userId";
+    $result = mysqli_query($conn, $query);
+    $completedTests = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $completedTests[$row['test_level']] = true;
+
+    }
 }
 
 // Získání otázek různých úrovní
@@ -386,27 +400,32 @@ mysqli_close($conn);
 
                         <h1 style="font-size: 4em">Test úrovně 1</h1><br>
 
-                        <form method="post">
-                            <input type="hidden" name="level1" id="level1" value="1">
-                            <ul>
-                                <?php foreach ($questionsLevel1 as $question): ?>
-                                    <li>
-                                        <p>
-                                            <?php echo $question['question']; ?>
-                                        </p>
-                                        <?php foreach ($question['answers'] as $answer): ?>
-                                            <label>
-                                                <input type="radio" name="answer_<?php echo $question['question_id']; ?>"
-                                                    value="<?php echo $answer['answer_id']; ?>">
-                                                <?php echo $answer['answer_text']; ?>
-                                            </label><br>
-                                        <?php endforeach; ?>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <!-- Jeden společný button pro odeslání odpovědí všech otázek -->
-                            <button type="submit" name="submit" id="submit_level1">Odeslat odpovědi</button>
-                        </form>
+                        <?php if (isset($completedTests[1])): ?>
+                            <p style="font-size: 1.5em;">Tento test je splněn.</p>
+                        <?php else: ?>
+
+                            <form method="post">
+                                <input type="hidden" name="level1" id="level1" value="1">
+                                <ul>
+                                    <?php foreach ($questionsLevel1 as $question): ?>
+                                        <li>
+                                            <p>
+                                                <?php echo $question['question']; ?>
+                                            </p>
+                                            <?php foreach ($question['answers'] as $answer): ?>
+                                                <label>
+                                                    <input type="radio" name="answer_<?php echo $question['question_id']; ?>"
+                                                        value="<?php echo $answer['answer_id']; ?>">
+                                                    <?php echo $answer['answer_text']; ?>
+                                                </label><br>
+                                            <?php endforeach; ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <!-- Jeden společný button pro odeslání odpovědí všech otázek -->
+                                <button type="submit" name="submit" id="submit_level1">Odeslat odpovědi</button>
+                            </form>
+                        <?php endif; ?>
 
 
                         <?php if (isset($percentage)): ?>
@@ -433,28 +452,32 @@ mysqli_close($conn);
 
                         <h1 style="font-size: 4em">Test úrovně 2</h1><br>
 
-                        <form method="post">
-                            <input type="hidden" name="level2" id="level2" value="2">
-                            <ul>
-                                <?php foreach ($questionsLevel2 as $question): ?>
-                                    <li>
-                                        <p>
-                                            <?php echo $question['question']; ?>
-                                        </p>
-                                        <?php foreach ($question['answers'] as $answer): ?>
-                                            <label>
-                                                <input type="radio" name="answer_<?php echo $question['question_id']; ?>"
-                                                    value="<?php echo $answer['answer_id']; ?>">
-                                                <?php echo $answer['answer_text']; ?>
-                                            </label><br>
-                                        <?php endforeach; ?>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <!-- Jeden společný button pro odeslání odpovědí všech otázek -->
-                            <button type="submit" name="submit" id="submit_level2">Odeslat odpovědi</button>
-                        </form>
+                        <?php if (isset($completedTests[2])): ?>
+                            <p style="font-size: 1.5em;">Tento test je splněn.</p>
+                        <?php else: ?>
 
+                            <form method="post">
+                                <input type="hidden" name="level2" id="level2" value="2">
+                                <ul>
+                                    <?php foreach ($questionsLevel2 as $question): ?>
+                                        <li>
+                                            <p>
+                                                <?php echo $question['question']; ?>
+                                            </p>
+                                            <?php foreach ($question['answers'] as $answer): ?>
+                                                <label>
+                                                    <input type="radio" name="answer_<?php echo $question['question_id']; ?>"
+                                                        value="<?php echo $answer['answer_id']; ?>">
+                                                    <?php echo $answer['answer_text']; ?>
+                                                </label><br>
+                                            <?php endforeach; ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <!-- Jeden společný button pro odeslání odpovědí všech otázek -->
+                                <button type="submit" name="submit" id="submit_level2">Odeslat odpovědi</button>
+                            </form>
+                        <?php endif; ?>
 
 
                         <?php if (isset($percentage)): ?>
@@ -476,32 +499,41 @@ mysqli_close($conn);
 
                 <div id="3.uroven">
 
+
                     <div style="display:block;background-color:black;opacity: 0.7;color:white;padding: 5%;"
                         class="editable-title" id="pageTitle">
 
+
                         <h1 style="font-size: 4em">Test úrovně 3</h1><br>
 
-                        <form method="post">
-                            <input type="hidden" name="level3" id="level3" value="3">
-                            <ul>
-                                <?php foreach ($questionsLevel3 as $question): ?>
-                                    <li>
-                                        <p>
-                                            <?php echo $question['question']; ?>
-                                        </p>
-                                        <?php foreach ($question['answers'] as $answer): ?>
-                                            <label>
-                                                <input type="radio" name="answer_<?php echo $question['question_id']; ?>"
-                                                    value="<?php echo $answer['answer_id']; ?>">
-                                                <?php echo $answer['answer_text']; ?>
-                                            </label><br>
-                                        <?php endforeach; ?>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <!-- Jeden společný button pro odeslání odpovědí všech otázek -->
-                            <button type="submit" name="submit" id="submit_level3">Odeslat odpovědi</button>
-                        </form>
+                        <?php if (isset($completedTests[3])): ?>
+                            <p style="font-size: 1.5em;">Tento test je splněn.</p>
+                        <?php else: ?>
+
+                            <form method="post">
+                                <input type="hidden" name="level3" id="level3" value="3">
+                                <ul>
+                                    <?php foreach ($questionsLevel3 as $question): ?>
+                                        <li>
+                                            <p>
+                                                <?php echo $question['question']; ?>
+                                            </p>
+                                            <?php foreach ($question['answers'] as $answer): ?>
+                                                <label>
+                                                    <input type="radio" name="answer_<?php echo $question['question_id']; ?>"
+                                                        value="<?php echo $answer['answer_id']; ?>">
+                                                    <?php echo $answer['answer_text']; ?>
+                                                </label><br>
+                                            <?php endforeach; ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <!-- Jeden společný button pro odeslání odpovědí všech otázek -->
+                                <button type="submit" name="submit" id="submit_level3">Odeslat odpovědi</button>
+                            </form>
+                        <?php endif; ?>
+
+
                         <?php if (isset($percentage)): ?>
                             <div class="results">
                                 <p>Počet správných odpovědí:

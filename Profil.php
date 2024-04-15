@@ -54,29 +54,49 @@ function generateAndDownloadPDF($conn)
 
     // Načtení posledních výsledků testu z databáze
     $userId = $_SESSION['id'];
-    $query = "SELECT * FROM test_results WHERE user_id = '$userId' AND test_level = '1' ORDER BY result_id DESC LIMIT 1";
+    // Získání sumy otázek a správných odpovědí pro všechny úrovně testů
+    $query = "SELECT 
+     SUM(CASE WHEN test_level = '1' THEN total_questions ELSE 0 END) AS total_questions_level1,
+     SUM(CASE WHEN test_level = '2' THEN total_questions ELSE 0 END) AS total_questions_level2,
+     SUM(CASE WHEN test_level = '3' THEN total_questions ELSE 0 END) AS total_questions_level3,
+     SUM(CASE WHEN test_level = '1' THEN total_correct ELSE 0 END) AS total_correct_level1,
+     SUM(CASE WHEN test_level = '2' THEN total_correct ELSE 0 END) AS total_correct_level2,
+     SUM(CASE WHEN test_level = '3' THEN total_correct ELSE 0 END) AS total_correct_level3
+   FROM test_results 
+   WHERE user_id = '$userId'";
+
     $result = mysqli_query($conn, $query);
 
-    // Pokud jsou výsledky k dispozici, zapiš je do PDF
+    // Pokud jsou výsledky k dispozici, zapište je do PDF
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        $totalQuestions = $row['total_questions'];
-        $totalCorrect = $row['total_correct'];
-        $percentage = $row['percentage'];
-        $test_level = $row['test_level'];
-        $date = $row['test_date'];
+        $totalQuestionsLevel1 = $row['total_questions_level1'];
+        $totalQuestionsLevel2 = $row['total_questions_level2'];
+        $totalQuestionsLevel3 = $row['total_questions_level3'];
+        $totalCorrectLevel1 = $row['total_correct_level1'];
+        $totalCorrectLevel2 = $row['total_correct_level2'];
+        $totalCorrectLevel3 = $row['total_correct_level3'];
+
+        $totalQuestions = $totalQuestionsLevel1 + $totalQuestionsLevel2 + $totalQuestionsLevel3;
+        $totalCorrect = $totalCorrectLevel1 + $totalCorrectLevel2 + $totalCorrectLevel3;
+
+        // Výpočet průměru procenta
+        if ($totalQuestions > 0) {
+            $percentage = round(($totalCorrect / $totalQuestions) * 100, 2);
+        } else {
+            $percentage = 0;
+        }
+
         $username = $_SESSION['name'];
 
-        // Vložení obsahu do PDF
         $content = '
-       <h1>Výsledky testu</h1>
-<h2><p>' . htmlspecialchars('Uroven testu: ', ENT_QUOTES, 'UTF-8') . $test_level . '</p></h2>
-<h2><p>' . htmlspecialchars('Jmeno: ', ENT_QUOTES, 'UTF-8') . $username . '</p></h2>
-<h3>' . htmlspecialchars('Datum splneni: ', ENT_QUOTES, 'UTF-8') . $date . '</h3>
-<h3>' . htmlspecialchars('Pocet otazek: ', ENT_QUOTES, 'UTF-8') . $totalQuestions . '</h3>
-<h3>' . htmlspecialchars('Pocet spravnych odpovedi: ', ENT_QUOTES, 'UTF-8') . $totalCorrect . '</h3>
-<h3>' . htmlspecialchars('Procenta: ', ENT_QUOTES, 'UTF-8') . $percentage . '%</h3>
-        ';
+           <h1>Výsledky testu</h1>
+           <h2><p>' . htmlspecialchars('Jméno: ', ENT_QUOTES, 'UTF-8') . $username . '</p></h2>
+           <h3>' . htmlspecialchars('Celkovy pocet otazek: ', ENT_QUOTES, 'UTF-8') . $totalQuestions . '</h3>
+           <h3>' . htmlspecialchars('Celkovy pocet spravnych odpovedi: ', ENT_QUOTES, 'UTF-8') . $totalCorrect . '</h3>
+           <h3>' . htmlspecialchars('Prumerne procenta: ', ENT_QUOTES, 'UTF-8') . $percentage . '%</h3>
+           ';
+
 
         // Podmínka pro zobrazení výsledku "uspěl" nebo "neuspěl"
         if ($percentage >= 70) {
@@ -93,6 +113,8 @@ function generateAndDownloadPDF($conn)
 
 
 
+
+
     // Uzavření spojení s databází
     mysqli_close($conn);
 
@@ -105,10 +127,28 @@ function generateAndDownloadPDF($conn)
     $pdf->Output('php://output', 'F');
 }
 
-// Ověření, zda bylo kliknuto na tlačítko pro stahování PDF
+
 if (isset($_POST['download_pdf'])) {
-    generateAndDownloadPDF($conn); // Zavolání funkce pro generování a stahování PDF
+    // Kontrola, zda uživatel splnil všechny tři úrovně testů
+    $userId = $_SESSION['id'];
+    $query = "SELECT COUNT(DISTINCT test_level) AS levels FROM test_results WHERE user_id = '$userId'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $levels = $row['levels'];
+
+    if ($levels == 3) {
+        // Pokud uživatel splnil všechny tři úrovně testů, generujeme a stahujeme PDF
+        generateAndDownloadPDF($conn);
+    } else {
+        // Pokud uživatel nesplnil všechny tři úrovně testů, zobrazíme mu zprávu
+        echo '<script>alert("Musíte splnit všechny tři úrovně testů, abyste mohli stáhnout certifikát.");</script>';
+    }
 }
+
+// // Ověření, zda bylo kliknuto na tlačítko pro stahování PDF
+// if (isset($_POST['download_pdf'])) {
+//     generateAndDownloadPDF($conn); // Zavolání funkce pro generování a stahování PDF
+// }
 
 
 if (isset($_POST['Poznatek'])) {

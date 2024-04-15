@@ -10,7 +10,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   // echo '<a href="logout.php">Odhlásit se</a>';
 } else {
   // Pokud uživatel není přihlášen, můžete zobrazit odkaz na přihlašovací stránku nebo nějaké jiné akce
-  echo 'Prosím, přihlaste se <a href="login.php">zde</a>.';
+  // echo 'Prosím, přihlaste se <a href="login.php">zde</a>.';
 }
 
 $DATABASE_HOST = 'localhost';
