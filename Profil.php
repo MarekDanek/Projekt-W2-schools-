@@ -67,6 +67,7 @@ function generateAndDownloadPDF($conn)
 
     $result = mysqli_query($conn, $query);
 
+
     // Pokud jsou výsledky k dispozici, zapište je do PDF
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
@@ -76,6 +77,7 @@ function generateAndDownloadPDF($conn)
         $totalCorrectLevel1 = $row['total_correct_level1'];
         $totalCorrectLevel2 = $row['total_correct_level2'];
         $totalCorrectLevel3 = $row['total_correct_level3'];
+
 
         $totalQuestions = $totalQuestionsLevel1 + $totalQuestionsLevel2 + $totalQuestionsLevel3;
         $totalCorrect = $totalCorrectLevel1 + $totalCorrectLevel2 + $totalCorrectLevel3;
@@ -90,19 +92,24 @@ function generateAndDownloadPDF($conn)
         $username = $_SESSION['name'];
 
         $content = '
-           <h1>Výsledky testu</h1>
+           <h1 style="text-align:center;">W3 SCHOOLS QUIZ</h1>
+           <h1 style="text-align:center;">CERTIFIKAT</h1>  
+           <h1>_____________________________________________________</h1>
            <h2><p>' . htmlspecialchars('Jméno: ', ENT_QUOTES, 'UTF-8') . $username . '</p></h2>
+           <h1>Výsledky testu</h1>  
            <h3>' . htmlspecialchars('Celkovy pocet otazek: ', ENT_QUOTES, 'UTF-8') . $totalQuestions . '</h3>
            <h3>' . htmlspecialchars('Celkovy pocet spravnych odpovedi: ', ENT_QUOTES, 'UTF-8') . $totalCorrect . '</h3>
            <h3>' . htmlspecialchars('Prumerne procenta: ', ENT_QUOTES, 'UTF-8') . $percentage . '%</h3>
+           <h3 style="text-align:right;">Vedoucí W3SchoolsQuiz: </h3>
+           <h3 style="text-align:right;">ing. Marek Danek</h3>  
            ';
 
 
         // Podmínka pro zobrazení výsledku "uspěl" nebo "neuspěl"
         if ($percentage >= 70) {
-            $content .= '<h2 style="color: green;">Prospel</h2>';
+            $content .= '<h2 style="color: green;">Prospel -> Certifikát je platný</h2>';
         } else {
-            $content .= '<h2 style="color: red;">Neuspel</h2>';
+            $content .= '<h2 style="color: red;">Neuspel -> Certifikát je neplatný</h2>';
         }
 
         $pdf->writeHTML($content, true, false, true, false, '');

@@ -7,9 +7,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   // echo 'Vítejte, ' . $_SESSION['name'] . '!';
   // // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
   // echo '<a href="logout.php">Odhlásit se</a>';
+  header("Location: Profil.php");
+  exit();
 } else {
   // Pokud uživatel není přihlášen, můžete zobrazit odkaz na přihlašovací stránku nebo nějaké jiné akce
   // echo 'Prosím, přihlaste se <a href="login.php">zde</a>.';
+
 }
 
 $DATABASE_HOST = 'localhost';
@@ -65,12 +68,14 @@ if (isset($_POST['Poznatek'])) {
       box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
       margin: 100px auto;
       border: solid black 4px;
+
+
     }
 
     .login h1 {
       text-align: center;
       color: #5b6574;
-      font-size: 24px;
+      font-size: 30px;
       padding: 20px 0 20px 0;
       border-bottom: 1px solid #dee0e4;
     }
@@ -79,7 +84,7 @@ if (isset($_POST['Poznatek'])) {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      padding-top: 20px;
+      padding-top: 30px;
     }
 
     .login form label {
@@ -99,6 +104,7 @@ if (isset($_POST['Poznatek'])) {
       border: 1px solid #dee0e4;
       margin-bottom: 20px;
       padding: 0 15px;
+      font-size: 18px;
     }
 
     .login form input[type="submit"] {
@@ -324,6 +330,7 @@ if (isset($_POST['Poznatek'])) {
         </form>
       </div>
 
+
       <div id="noteFormContainer">
         <span style="float: right;" class="closeBtn" onclick="closeForm()">&times;</span>
         <h2>Napište poznatek</h2>
@@ -336,6 +343,7 @@ if (isset($_POST['Poznatek'])) {
             type="submit" value="Odeslat">
         </form>
       </div>
+
 
 
   </header>
