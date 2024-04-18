@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['id'])) {
                 $userId = $_SESSION['id'];
                 // Uložení výsledků do databáze
-                $query = "INSERT INTO test_results (user_id, test_level, total_questions, total_correct, percentage, test_type) VALUES (?, ?, ?, ?, ?, 'HTML')";
+                $query = "INSERT INTO test_results (user_id, test_level, total_questions, total_correct, percentage, test_type) VALUES (?, ?, ?, ?, ?, 'PHP')";
                 $statement = mysqli_prepare($conn, $query);
                 mysqli_stmt_bind_param($statement, "iiiii", $userId, $level, $totalQuestions, $totalCorrect, $percentage);
                 mysqli_stmt_execute($statement);
@@ -155,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 // Zde zkontrolujeme, zda uživatel již splnil nějaký test
 if (isset($_SESSION['id'])) {
     $userId = $_SESSION['id'];
-    $query = "SELECT * FROM test_results WHERE user_id = $userId AND test_type = 'HTML'";
+    $query = "SELECT * FROM test_results WHERE user_id = $userId AND test_type = 'PHP'";
     $result = mysqli_query($conn, $query);
     $completedTests = [];
     while ($row = mysqli_fetch_assoc($result)) {
@@ -165,9 +165,9 @@ if (isset($_SESSION['id'])) {
 }
 
 // Získání otázek různých úrovní
-$questionsLevel1 = getQuestionsByLevel($conn, 1, "HTML");
-$questionsLevel2 = getQuestionsByLevel($conn, 2, "HTML");
-$questionsLevel3 = getQuestionsByLevel($conn, 3, "HTML");
+$questionsLevel1 = getQuestionsByLevel($conn, 1, "PHP");
+$questionsLevel2 = getQuestionsByLevel($conn, 2, "PHP");
+$questionsLevel3 = getQuestionsByLevel($conn, 3, "PHP");
 
 // Uzavření spojení s databází
 mysqli_close($conn);
@@ -360,7 +360,7 @@ mysqli_close($conn);
             <!-- Boční panel s odkazy na stránky -->
             <div class="sidebar">
                 <a style="background-color:#3B3B3B;" href="Hlavni_stranka.php"><b>DOMŮ</b></a>
-                <a onclick="changeContent('Testy')" class="active">Testy HTML</a>
+                <a onclick="changeContent('Testy')" class="active">Testy PHP</a>
                 <a onclick="changeContent('1.uroven'); setTestLevel1(1)">1.Úroveň</a>
                 <a onclick="changeContent('2.uroven'); setTestLevel2(2)">2.Úroveň</a>
                 <a onclick="changeContent('3.uroven'); setTestLevel3(3)">3.Úroveň</a>
@@ -381,13 +381,14 @@ mysqli_close($conn);
 
 
 
-                        <h1 style="text-align: center;font-size: 4em">Test HTML</h1><br>
+                        <h1 style="text-align: center;font-size: 4em">Test PHP</h1><br>
 
                         <h3 style="text-align: center;">Tento test nebudete mít šanci dělat podruhé!<br>
-                            Za splnění více jak 80% otázek vám bude přidělen certifikát HTML<br>
+                            Za splnění více jak 80% otázek vám bude přidělen certifikát PHP<br>
                             Na test máte neomezeně času.
 
                         </h3>
+
 
 
 

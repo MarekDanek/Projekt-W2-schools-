@@ -7,7 +7,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   // echo 'Vítejte, ' . $_SESSION['name'] . '!';
   // // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
   // echo '<a href="logout.php">Odhlásit se</a>';
+  echo '<style>.navbar a[href="login.php"] { display: none; }</style>';
 } else {
+  echo '<style>.navbar a[href="login.php"] { display: block; }</style>';
   // Pokud uživatel není přihlášen, můžete zobrazit odkaz na přihlašovací stránku nebo nějaké jiné akce
   // echo 'Prosím, přihlaste se <a href="login.php">zde</a>.';
 }
@@ -321,7 +323,7 @@ if (isset($_POST['Poznatek'])) {
         <div class="dropdown">
           <a href="javascript:void(0);" onclick="showDropdown()"><b>Info</b></a>
           <div class="dropdown-content" id="kurzyDropdown">
-            <a href="Informace_IT.php">Obecné Informace</a>
+            <a href="Info.php">Obecné Informace</a>
             <a id="showFormBtn">Poznatek</a>
           </div>
         </div>

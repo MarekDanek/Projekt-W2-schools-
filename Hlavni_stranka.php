@@ -8,7 +8,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
   // echo 'Vítejte, ' . $_SESSION['name'] . '!';
   // // Zde můžete zobrazit tlačítko pro odhlášení, aby uživatel mohl kliknout a odhlásit se
   // echo '<a href="logout.php">Odhlásit se</a>';
+  echo '<style>.navbar a[href="login.php"] { display: none; }</style>';
+
 } else {
+  echo '<style>.navbar a[href="login.php"] { display: block; }</style>';
+
   // Pokud uživatel není přihlášen, můžete zobrazit odkaz na přihlašovací stránku nebo nějaké jiné akce
   // echo 'Prosím, přihlaste se <a href="login.php">zde</a>.';
 }
@@ -54,7 +58,7 @@ if (isset($_POST['Poznatek'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="css-hlavni_stranka.css">
-  <link rel="icon" href="icon.png">
+  <link rel="icon" href="logo-new-bílý.png">
   <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
@@ -273,7 +277,7 @@ if (isset($_POST['Poznatek'])) {
         <div class="dropdown">
           <a href="javascript:void(0);" onclick="showDropdown()"><b>Info</b></a>
           <div class="dropdown-content" id="kurzyDropdown">
-            <a href="Informace_IT.php">Obecné Informace</a>
+            <a href="Info.php">Obecné Informace</a>
             <a id="showFormBtn">Poznatek</a>
           </div>
         </div>
