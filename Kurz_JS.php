@@ -255,7 +255,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                         <a onclick="changeContent('Objekty')">Objekty</a>
                         <a onclick="changeContent('Udalosti')">Udalosti</a>
                         <a onclick="changeContent('Pole')">Pole</a>
-                        <a onclick="changeContent('Matematicke_funkce')">Matematické funkce</a>
+                        <a onclick="changeContent('matematicke_funkce')">Matematické funkce</a>
                         <a onclick="changeContent('IF')">IF</a>
                         <a onclick="changeContent('JSON')">JSON</a>
             </div>
@@ -282,6 +282,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                             JavaScript</h2><br>
                         <h2 style="text-align: center;">Na levé straně si vyberte, jakou část JS se chcete naučit, nebo
                             vyhledejte podle klíčového slova.</h2><br>
+
+                        <h2 style="text-align: center;"> <a target="_blank"
+                                href="https://www.youtube.com/watch?v=FqqhAWJgN0E&list=PLQ8x_VWW6AktVAKDISvXrcsh6kp7Jt_SM">Klikněte
+                                zde pro JS video tutoriál na youtubu od Davida Šetka.</a></h2>
+                        <br>
 
 
                     </div>
@@ -343,6 +348,42 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 
                         <h1 style="text-align: center;font-size: 4em">Syntaxe</h1><br>
 
+                        <h3 style="text-align:center">
+                            <code>JS můžete psát přímo v souboru html -> &lt;script&gt;&lt;/script&gt; nebo si vytvořit soubor.js a do něj psát samostatný js kód.</code>
+                        </h3><br>
+
+                        <div style="display:block;" id="code-container">
+                            <code>
+                                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comnment">Základní syntaxe JS</p>
+  
+                                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br><br><br>
+                &lt;script&gt;<br>
+                &nbsp;&nbsp;// Deklarace proměnných<br>
+                &nbsp;&nbsp;let x = 5; // Deklarace proměnné x s hodnotou 5<br>
+                &nbsp;&nbsp;const PI = 3.14; // Deklarace konstanty PI s hodnotou 3.14<br>
+                &nbsp;&nbsp;var message = 'Hello World'; // Deklarace proměnné message s hodnotou 'Hello World'<br>
+                <br>
+                &nbsp;&nbsp;//zde se píše JavaScriptový kód<br>
+                &lt;/script&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+                        </div>
+                        <br>
+
+                        <div style="text-align:center;display:block;">
+                            <a class="button-link" href="code-editor-js.php" target="_blank"><button
+                                    class="button-link">Vyzkoušej</button></a>
+                        </div><br>
+
+
 
 
                     </div>
@@ -357,7 +398,45 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 
                         <h1 style="text-align: center;font-size: 4em">Operace</h1><br>
 
+                        <h3 style="text-align:center">JS nabízí širokou škálu operací, které umožňují
+                            manipulaci s daty a interakci s uživatelem na webových stránkách.</h3><br>
 
+                        <div style="display:block;" id="code-container">
+                            <code>
+                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comment">Základní operace JS</p>
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br><br><br>
+                &lt;script&gt;<br>
+                &nbsp;&nbsp;// Deklarace proměnných<br>
+                &nbsp;&nbsp;let x = 5; // Deklarace proměnné x s hodnotou 5<br>
+                &nbsp;&nbsp;const PI = 3.14; // Deklarace konstanty PI s hodnotou 3.14<br>
+                &nbsp;&nbsp;var message = 'Hello World'; // Deklarace proměnné message s hodnotou 'Hello World'<br>
+                <br>
+                &nbsp;&nbsp;// Operace s proměnnými<br>
+                &nbsp;&nbsp;let y = x + 3; // Přiřazení součtu hodnot proměnných x a 3 do proměnné y<br>
+                &nbsp;&nbsp;let z = x * y; // Přiřazení součinu hodnot proměnných x a y do proměnné z<br>
+                <br>
+                &nbsp;&nbsp;console.log(y); // Vypsání hodnoty proměnné y do konzole<br>
+                &nbsp;&nbsp;alert(z); // Zobrazení hodnoty proměnné z v alert okně<br>
+                <br>
+                &nbsp;&nbsp;//zde se píše JavaScriptový kód<br>
+                &lt;/script&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+                        </div>
+                        <br>
+
+                        <div style="text-align:center;display:block;">
+                            <a class="button-link" href="code-editor-js.php" target="_blank"><button
+                                    class="button-link">Vyzkoušej</button></a>
+                        </div><br>
 
 
                     </div>
@@ -372,6 +451,48 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                         class="editable-title" id="pageTitle">
 
                         <h1 style="text-align: center;font-size: 4em">Funkce</h1><br>
+
+                        <h3 style="text-align:center">JS je bohatý na funkce, které umožňují strukturovat
+                            kód, opakovatelně vykonávat úkoly a usnadňují správu komplexních aplikací na webových
+                            stránkách.</h3><br>
+                        <h3 style="text-align:center">
+                            <code>V JavaScriptu můžete definovat vlastní funkce pomocí klíčového slova <code>function</code>
+                            a poté je volat v rámci kódu. Funkce mohou být deklarovány přímo v HTML souborech nebo v
+                            samostatných souborech s příponou .js, které se následně importují do HTML.</code>
+                        </h3><br>
+
+                        <div style="display:block;" id="code-container">
+                            <code>
+                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comment">Funkce</p>
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br><br><br>
+                &lt;script&gt;<br>
+                &nbsp;&nbsp;// Definice funkce<br>
+                &nbsp;&nbsp;function greet() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;return "Hello World!";<br>
+                &nbsp;&nbsp;}<br>
+                <br>
+                &nbsp;&nbsp;// Volání funkce<br>
+                &nbsp;&nbsp;let message = greet();<br>
+                <br>
+                &nbsp;&nbsp;console.log(message); // Vypsání výsledku volání funkce do konzole<br>
+                &lt;/script&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+                        </div>
+                        <br>
+
+                        <div style="text-align:center;display:block;">
+                            <a class="button-link" href="code-editor-js.php" target="_blank"><button
+                                    class="button-link">Vyzkoušej</button></a>
+                        </div><br>
 
 
 
@@ -388,6 +509,55 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                         class="editable-title" id="pageTitle">
 
                         <h1 style="text-align: center;font-size: 4em">Objekty</h1><br>
+                        <h3 style="text-align:center">JS poskytuje koncept objektů, které umožňují
+                            organizovat data a funkcionalitu do jednotlivých entit. Objekty jsou základními stavebními
+                            bloky v JavaScriptu a umožňují vytvářet složité datové struktury a interakce.</h3><br>
+                        <h3 style="text-align:center">
+                            <code>V JavaScriptu můžete definovat objekty pomocí složených závorek <code>{}</code> a
+                            přistupovat k jejich vlastnostem a metodám pomocí tečkové notace nebo závorkové notace.
+                            Objekty mohou obsahovat různé typy dat, včetně čísel, řetězců, funkcí a dokonce i jiných
+                            objektů.</code>
+                        </h3><br>
+
+                        <div style="display:block;" id="code-container">
+                            <code>
+                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comment">Objekty</p>
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br><br><br>
+                &lt;script&gt;<br>
+                &nbsp;&nbsp;// Definice objektu<br>
+                &nbsp;&nbsp;let person = {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;firstName: 'John',<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;lastName: 'Doe',<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;age: 30,<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;fullName: function() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return this.firstName + ' ' + this.lastName;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;}<br>
+                <br>
+                &nbsp;&nbsp;// Přístup k vlastnostem objektu<br>
+                &nbsp;&nbsp;console.log(person.firstName); // Vypíše 'John'<br>
+                &nbsp;&nbsp;console.log(person.age); // Vypíše 30<br>
+                <br>
+                &nbsp;&nbsp;// Volání metody objektu<br>
+                &nbsp;&nbsp;console.log(person.fullName()); // Vypíše 'John Doe'<br>
+                &lt;/script&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+                        </div>
+                        <br>
+
+                        <div style="text-align:center;display:block;">
+                            <a class="button-link" href="code-editor-js.php" target="_blank"><button
+                                    class="button-link">Vyzkoušej</button></a>
+                        </div><br>
 
 
 
@@ -403,6 +573,43 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                         class="editable-title" id="pageTitle">
 
                         <h1 style="text-align: center;font-size: 4em">Údálosti</h1><br>
+                        <h3 style="text-align:center">JS umožňuje manipulovat s interakcí uživatele na
+                            webových stránkách pomocí událostí. Události jsou akce, které se odehrávají na stránce, jako
+                            například kliknutí myší, stisknutí klávesy nebo načtení stránky, a JavaScript umožňuje
+                            reagovat na tyto události a provádět odpovídající akce.</h3><br>
+                        <h3 style="text-align:center">
+                            <code>V JavaScriptu můžete zachytávat události pomocí přidání posluchačů událostí k elementům HTML, které vyvolávají dané události. Posluchači událostí jsou funkce, které jsou vyvolány, když se daná událost odehrává, a umožňují provádět různé akce v reakci na události.</code>
+                        </h3><br>
+
+                        <div style="display:block;" id="code-container">
+                            <code>
+                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comment">Údálosti</p>
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br><br><br>
+                &lt;button id="myButton"&gt;Click me&lt;/button&gt;<br><br>
+                
+                &lt;script&gt;<br>
+                &nbsp;&nbsp;// Zachytávání události kliknutí na tlačítko<br>
+                &nbsp;&nbsp;document.getElementById('myButton').addEventListener('click', function() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;alert('Button clicked!');<br>
+                &nbsp;&nbsp;});<br>
+                &lt;/script&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+                        </div>
+                        <br>
+
+                        <div style="text-align:center;display:block;">
+                            <a class="button-link" href="code-editor-js.php" target="_blank"><button
+                                    class="button-link">Vyzkoušej</button></a>
+                        </div><br>
 
 
 
@@ -419,6 +626,49 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 
                         <h1 style="text-align: center;font-size: 4em">Pole</h1><br>
 
+                        <h3 style="text-align:center">V JS je pole (array) datová struktura, která umožňuje
+                            ukládat a organizovat více hodnot do jedné proměnné. Pole v JavaScriptu může obsahovat prvky
+                            různých datových typů, včetně čísel, řetězců, objektů nebo dokonce jiných polí.</h3><br>
+                        <h3 style="text-align:center">
+                            <code>Pole v JavaScriptu se deklarují pomocí hranatých závorek <code>[]</code> a mohou být
+                            inicializovány s konkrétními hodnotami nebo mohou být prázdná a naplněna později. Prvky v
+                            poli jsou indexovány od nuly, což znamená, že první prvek má index 0, druhý prvek má index 1
+                            a tak dále.</code>
+                        </h3><br>
+
+                        <div style="display:block;" id="code-container">
+                            <code>
+                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comment">Základní kostra JS</p>
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br><br><br>
+                &lt;script&gt;<br>
+                &nbsp;&nbsp;// Deklarace a inicializace pole<br>
+                &nbsp;&nbsp;let fruits = ['Apple', 'Banana', 'Orange'];<br>
+                <br>
+                &nbsp;&nbsp;// Přístup k prvkům pole pomocí indexu<br>
+                &nbsp;&nbsp;console.log(fruits[0]); // Vypíše 'Apple'<br>
+                &nbsp;&nbsp;console.log(fruits[1]); // Vypíše 'Banana'<br>
+                <br>
+                &nbsp;&nbsp;// Změna hodnoty prvku v poli<br>
+                &nbsp;&nbsp;fruits[2] = 'Pear';<br>
+                &nbsp;&nbsp;console.log(fruits); // Vypíše ['Apple', 'Banana', 'Pear']<br>
+                &lt;/script&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+                        </div>
+                        <br>
+
+                        <div style="text-align:center;display:block;">
+                            <a class="button-link" href="code-editor-js.php" target="_blank"><button
+                                    class="button-link">Vyzkoušej</button></a>
+                        </div><br>
 
 
                     </div>
@@ -433,7 +683,48 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                         class="editable-title" id="pageTitle">
 
                         <h1 style="text-align: center;font-size: 4em">Matematické funkce</h1><br>
+                        <h3 style="text-align:center">V JavaScriptu jsou k dispozici různé matematické funkce pro
+                            provádění operací s čísly. Tyto funkce umožňují provádět základní matematické operace, jako
+                            jsou sčítání, odčítání, násobení, dělení, umocňování a další.</h3><br>
+                        <h3 style="text-align:center">
+                            <code>Matematické funkce v JavaScriptu jsou součástí vnitřního objektu <code>Math</code>,
+                            který obsahuje mnoho užitečných metod pro práci s čísly. Tyto metody zahrnují například
+                            <code>Math.abs()</code> pro absolutní hodnotu, <code>Math.round()</code> pro zaokrouhlení na
+                            nejbližší celé číslo a <code>Math.sqrt()</code> pro odmocninu.</code>
+                        </h3><br>
 
+                        <div style="display:block;" id="code-container">
+                            <code>
+                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comment">Základní kostra JS</p>
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br><br><br>
+                &lt;script&gt;<br>
+                &nbsp;&nbsp;// Použití matematických funkcí<br>
+                &nbsp;&nbsp;let number = -5.678;<br>
+                &nbsp;&nbsp;let absoluteValue = Math.abs(number); // Výpočet absolutní hodnoty<br>
+                &nbsp;&nbsp;let roundedValue = Math.round(number); // Zaokrouhlení na nejbližší celé číslo<br>
+                &nbsp;&nbsp;let squareRoot = Math.sqrt(25); // Výpočet odmocniny<br>
+                <br>
+                &nbsp;&nbsp;console.log(absoluteValue); // Vypíše 5.678<br>
+                &nbsp;&nbsp;console.log(roundedValue); // Vypíše -6 (zaokrouhlení dolů)<br>
+                &nbsp;&nbsp;console.log(squareRoot); // Vypíše 5 (odmocnina z 25)<br>
+                &lt;/script&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+                        </div>
+                        <br>
+
+                        <div style="text-align:center;display:block;">
+                            <a class="button-link" href="code-editor-js.php" target="_blank"><button
+                                    class="button-link">Vyzkoušej</button></a>
+                        </div><br>
 
 
                     </div>
@@ -448,7 +739,46 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                         class="editable-title" id="pageTitle">
 
                         <h1 style="text-align: center;font-size: 4em">IF</h1><br>
+                        <h3 style="text-align:center">V JavaScriptu se používá podmíněné vykonávání kódu pomocí
+                            konstrukce `if`. Tato konstrukce
+                            umožňuje provádět určité kroky pouze tehdy, když je splněna určitá podmínka.</h3><br>
+                        <h3 style="text-align:center">
+                            <code>Výraz uvnitř `if` je vyhodnocen jako pravdivý nebo nepravdivý (boolean). Pokud je výraz pravdivý (true),
+                       kód uvnitř bloku `if` je vykonán. V opačném případě je tento kód přeskočen.</code>
+                        </h3><br>
 
+                        <div style="display:block;" id="code-container">
+                            <code>
+                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comment">Základní kostra JS</p>
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br><br><br>
+                &lt;script&gt;<br>
+                &nbsp;&nbsp;// Podmíněné vykonávání kódu pomocí if<br>
+                &nbsp;&nbsp;let number = 10;<br>
+                &nbsp;&nbsp;if (number > 0) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;console.log("Číslo je kladné.");<br>
+                &nbsp;&nbsp;} else if (number === 0) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;console.log("Číslo je nula.");<br>
+                &nbsp;&nbsp;} else {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;console.log("Číslo je záporné.");<br>
+                &nbsp;&nbsp;}<br>
+                &lt;/script&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+                        </div>
+                        <br>
+
+                        <div style="text-align:center;display:block;">
+                            <a class="button-link" href="code-editor-js.php" target="_blank"><button
+                                    class="button-link">Vyzkoušej</button></a>
+                        </div><br>
 
 
                     </div>
@@ -463,7 +793,42 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                         class="editable-title" id="pageTitle">
 
                         <h1 style="text-align: center;font-size: 4em">JSON</h1><br>
+                        <h3 style="text-align:center">JSON (JavaScript Object Notation) je lehký datový formát používaný
+                            pro výměnu dat mezi serverem a prohlížečem. V JavaScriptu se často používá k uložení a
+                            přenosu dat.</h3><br>
+                        <h3 style="text-align:center">
+                            <code>JSON je textový formát, který je snadno čitelný pro lidi i stroje. Skládá se ze sady párových klíč-hodnota, které jsou uzavřeny v závorkách `{}`.</code>
+                        </h3><br>
 
+                        <div style="display:block;" id="code-container">
+                            <code>
+                <p style="background-color:black;color: white;text-align:center;border-radius:5%;" class="comment">Základní kostra JS</p>
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &lt;head&gt;<br>
+                &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                &nbsp;&nbsp;&lt;title&gt;W2Schools Quiz&lt;/title&gt;<br>
+                &lt;/head&gt;<br>
+                &lt;body&gt;<br><br><br>
+                &lt;script&gt;<br>
+                &nbsp;&nbsp;// Použití formátu JSON<br>
+                &nbsp;&nbsp;let jsonData = '{"name": "John", "age": 30, "city": "New York"}';<br>
+                &nbsp;&nbsp;let jsonObj = JSON.parse(jsonData);<br>
+                &nbsp;&nbsp;console.log(jsonObj.name); // Vypíše "John"<br>
+                &nbsp;&nbsp;console.log(jsonObj.age); // Vypíše 30<br>
+                &nbsp;&nbsp;console.log(jsonObj.city); // Vypíše "New York"<br>
+                &lt;/script&gt;<br>
+                &lt;/body&gt;<br>
+                &lt;/html&gt;<br>
+            </code>
+                        </div>
+                        <br>
+
+                        <div style="text-align:center;display:block;">
+                            <a class="button-link" href="code-editor-js.php" target="_blank"><button
+                                    class="button-link">Vyzkoušej</button></a>
+                        </div><br>
 
 
                     </div>
@@ -489,7 +854,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             { id: 'Objekty', title: 'Objekty' },
             { id: 'Udalosti', title: 'Udalosti' },
             { id: 'Pole', title: 'Pole' },
-            { id: 'Matematicke_funkce', title: 'Matematickee funkce' },
+            { id: 'matematicke_funkce', title: 'Matematickee funkce' },
             { id: 'IF', title: 'IF' },
             { id: 'JSON', title: 'JSON' }
         ];
